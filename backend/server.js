@@ -1,12 +1,13 @@
-
+import {app} from './src/app.js'
+import {connectDB} from './src/config/db.js'
 // load .env file
-require('dotenv').config()
+import dotenv from 'dotenv'
 
-// import app from app.js
-const app = require('./src/app.js')
+
+// load evironment variables
+dotenv.config()
 
 // connect to DB
-const connectDB = require('./src/config/db.js')
 connectDB()
 
 const PORT = process.env.PORT || 8080

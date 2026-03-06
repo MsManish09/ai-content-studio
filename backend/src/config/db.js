@@ -1,8 +1,8 @@
+import mongoose from 'mongoose'
 
-const mongoose = require('mongoose')
 
 // connect ot cloud DB
-const connectDB = async ()=>{
+export const connectDB = async ()=>{
     try {
         await mongoose.connect(process.env.MONGO_URL)
         console.log('DB connected...')
@@ -14,5 +14,4 @@ const connectDB = async ()=>{
     }
 }
 
-// export connect db
-module.exports = connectDB
+
