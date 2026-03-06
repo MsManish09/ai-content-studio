@@ -15,7 +15,7 @@ export default async function loginUser({email, password}){
 
     // if no user
     if(!user){
-        throw new Error('No such user exist, user not found')
+        throw new Error('Invalid email')
     }
 
     // if user exists -> compare password
@@ -23,7 +23,7 @@ export default async function loginUser({email, password}){
 
     // if password wrong
     if(!passwordMatch){
-        throw new Error('Wrong password')
+        throw new Error('Invalid password')
     }
 
     // if password correct -> generate token
