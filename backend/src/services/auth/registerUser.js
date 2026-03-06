@@ -7,40 +7,39 @@ import generateToken from "../../utils/genereateToken.js";
 
 export default async function registerUser({name, email, password}){
 
-    // check if user email already exist
-    const existingUser =  await UserModel.findOne({email})
+    // check if user email already exist | database email -> unique : true is the real protection.
+        const existingUser =  await UserModel.findOne({email})
 
     // if user exist throw error
-    if(existingUser){
-        throw new Error('User already exists')
-    }
+        if(existingUser){
+            throw new Error('User already exists')
+        }
 
     // else
         // hash password
-        const salt = await bcrypt.genSalt(10) 
-        const hashedPassword = await bcrypt.hash(password, salt)
+        const hashedPassword = await bcrypt.hash(password, 10) //salt = 0
 
     // create user 
-    console.log("Creating user in DB...");
-    const user = await UserModel.create({
-        name,
-        email,
-        password: hashedPassword,
-    })
+        console.log("Creating user in DB...");
+        const user = await UserModel.create({
+            name,
+            email,
+            password: hashedPassword,
+        })
 
     // after creating user -> generete token
-    const token  = generateToken(user._id)
+        const token  = generateToken(user._id)
 
-    // return token + filtered user
-    return{
-        token,
-        user:{
-            id: user._id,
-            name: user.name,
-            email: user.email,
-            plan: user.plan,
-            usageCount: user.usageCount
+    // return token + filtered user data
+        return{
+            token,
+            user:{
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                plan: user.plan,
+                usageCount: user.usageCount
+            }
         }
-    }
 }
 

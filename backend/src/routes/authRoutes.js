@@ -1,6 +1,7 @@
 
 import express from 'express'
 import { register } from '../controllers/auth/registerUser.controller.js'
+import { login } from '../controllers/auth/loginUser.controller.js'
 
 const router = express.Router()
 
@@ -8,7 +9,7 @@ const router = express.Router()
 router.post('/register', register)
 
 // login route -> /api/auth/login
-// router.post('/login', login)
+router.post('/login', login)
 
 // get current user -> /api/auth/me
 // router.get('/me', me)

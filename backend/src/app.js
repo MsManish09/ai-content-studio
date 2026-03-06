@@ -7,7 +7,12 @@ export const app = new express()
 app.use(express.json())
 
 // routes
-app.use('/api/auth', authRoutes)
+// app.use('/', (req, res)=>{
+//     res.status(200).json({
+//             message: 'home route'
+//         })
+// })
+app.use('/api/auth', authRoutes) 
 
 
 
