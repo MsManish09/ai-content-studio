@@ -1,5 +1,6 @@
 
 import mongoose from "mongoose";
+import { AI_MODEL } from "../config/ai.config.js";
 
 // reference relationshiip -> user._id
 const generationSchema = new mongoose.Schema({
@@ -31,7 +32,7 @@ const generationSchema = new mongoose.Schema({
 
     model: {
         type: String,
-        default: "gpt-4o-mini"
+        default: AI_MODEL
     }
 
 }, {timestamps: true})

@@ -1,12 +1,12 @@
 
 import express from 'express'
-import authMiddleware from '../middlewares/authMiddleware'
+import authMiddleware from '../middlewares/authMiddleware.js'
 import { generationController } from '../controllers/generation/generation.controller.js'
 
-const router = express.Router()
+const GenerationRoutes = express.Router()
 
 // POST /api/generate
-router.post('/generate', authMiddleware, generationController)
+GenerationRoutes.post('/generate', authMiddleware, generationController)
 
 
-export default router
+export default GenerationRoutes

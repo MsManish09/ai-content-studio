@@ -6,12 +6,16 @@ import generateToken from "../../utils/genereateToken.js";
 // implemnt user login
 export default async function loginUser({email, password}){
 
+    console.log('Email : ', email)
+    console.log('Password: ', password)
+
     if(!email || !password){
         throw new Error('Invalid email or password')
     }
 
     // check if user exist
     const user = await UserModel.findOne({email})
+    console.log('user: ', user)
 
     // if no user
     if(!user){

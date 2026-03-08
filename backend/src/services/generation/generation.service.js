@@ -1,5 +1,6 @@
 import { UserModel } from "../../models/Users.model.js";
 import { generationModel } from "../../models/Generations.model.js";
+import { generateContent } from "./ai.services.js";
 
 export default async function generationService({userId,prompt, template}){
 
@@ -19,6 +20,7 @@ export default async function generationService({userId,prompt, template}){
     const today = new Date().toDateString()
     if(user.usageDate?.toDateString() !== today){
         user.usageCount = 0 
+        user.tokensUsedToday = 0
         user.usageDate = new Date()
     }
 
@@ -35,23 +37,22 @@ export default async function generationService({userId,prompt, template}){
     const formattedPrompt = promptBuilder(prompt, template)
 
     // call openAI and send formatted prompt
-
-    // const {result, tokensUsed} = ''
-    const result = 'ai generation coming soon'
-    const tokensUsed = 0
+    const {result, tokensUsed} = await generateContent(formattedPrompt)
 
     // create generation document (in atlas)
-    const generated = await  generationModel.create({
+    await  generationModel.create({
         userId,
         prompt, 
         template,
         result,
-        tokensUsed, // later update it
-        model: 'gpt-4o-mini' // later update it
+        tokensUsed, 
+        model: 'llama3-70b-8192' 
     })
 
     // update count and save
     user.usageCount += 1
+    user.tokensUsedToday += tokensUsed // track todays usage
+    user.totalTokensUsed += tokensUsed // add current used tokens to user used tokens
     await user.save()
 
     // return result

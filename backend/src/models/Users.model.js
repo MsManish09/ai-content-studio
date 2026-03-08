@@ -41,6 +41,14 @@ const userSchema = new mongoose.Schema({
         default: 0
     },
 
+    tokensUsedToday:{
+        type: Number
+    },
+
+    totalTokensUsed: {
+        type: Number
+    },
+
     usageDate: {
         type: Date,
         default: Date.now
