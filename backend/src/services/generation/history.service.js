@@ -2,7 +2,7 @@
 import { generationModel } from "../../models/Generations.model.js";
 import { UserModel } from "../../models/Users.model.js";
 
-export default async function historyService({userId}){
+export default async function historyService({userId, page, limit}){
 
     // console.log('history services | userid: ', userId)
 
@@ -14,14 +14,27 @@ export default async function historyService({userId}){
     }
 
     // if generation history -> find generation by id , limit - 20
-    const generations =  await generationModel
-    .find({userId})
-    .select("prompt template createdAt") // only return prompt, template, generation id and created time
-    .sort({createdAt: -1})
-    .limit(20)
-    
-    console.log('Generation history: ', generations)
 
-    return generations
+    const skip = (page - 1) * limit // pagination
+
+    // run both async opertions at the same time -> faster api response
+    const [generations, total] = await Promise.all([
+        generationModel
+            .find({ userId })
+            .select("_id prompt template createdAt")
+            .sort({ createdAt: -1 })
+            .skip(skip)
+            .limit(limit),
+
+        generationModel.countDocuments({ userId })
+    ])
+
+    // calculate total number of pages with limit
+    const totalPages = Math.ceil( total / limit )
+    return {
+        generations,
+        total,
+        totalPages
+    }
 
 }

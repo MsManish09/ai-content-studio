@@ -5,11 +5,24 @@ export async function historyController(req, res, next){
 
     try {
         const userId = req.userId
-        const history = await historyService({userId})
+
+        // extracting query params 
+        const page = parseInt(req.query.page) || 1
+        const limit = parseInt(req.query.limit) || 20
+
+        const {generations, total, totalPages} = await historyService({
+            userId,
+            page, 
+            limit
+        })
 
         res.status(200).json({
             success: true,
-            data: history
+            page,
+            limit,
+            total,
+            totalPages,
+            data: generations
         })
         
     } catch (error) {

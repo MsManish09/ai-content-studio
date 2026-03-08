@@ -4,6 +4,7 @@
 import OpenAI from "openai";
 import { AI_MODEL } from "../../config/ai.config.js"; 
 
+// wrapper - SDK client
 const client = new OpenAI({
     apiKey: process.env.GROQ_API_KEY,
     baseURL: "https://api.groq.com/openai/v1"
