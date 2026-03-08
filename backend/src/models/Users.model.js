@@ -42,11 +42,13 @@ const userSchema = new mongoose.Schema({
     },
 
     tokensUsedToday:{
-        type: Number
+        type: Number,
+        default: 0
     },
 
     totalTokensUsed: {
-        type: Number
+        type: Number, 
+        default: 0
     },
 
     usageDate: {
