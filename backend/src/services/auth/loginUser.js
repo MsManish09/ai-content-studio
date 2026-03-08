@@ -7,7 +7,7 @@ import generateToken from "../../utils/genereateToken.js";
 export default async function loginUser({email, password}){
 
     if(!email || !password){
-        throw new Error('Invalid user cridentials')
+        throw new Error('Invalid email or password')
     }
 
     // check if user exist
@@ -15,7 +15,7 @@ export default async function loginUser({email, password}){
 
     // if no user
     if(!user){
-        throw new Error('Invalid email')
+        throw new Error('Invalid email or password')
     }
 
     // if user exists -> compare password
@@ -23,7 +23,7 @@ export default async function loginUser({email, password}){
 
     // if password wrong
     if(!passwordMatch){
-        throw new Error('Invalid password')
+        throw new Error('Invalid email or password')
     }
 
     // if password correct -> generate token

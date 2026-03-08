@@ -3,6 +3,7 @@ import express from 'express'
 import { register } from '../controllers/auth/registerUser.controller.js'
 import { login } from '../controllers/auth/loginUser.controller.js'
 import { getMe } from '../controllers/auth/getMe.controller.js'
+import authMiddleware from '../middlewares/authMiddleware.js'
 
 const router = express.Router()
 
@@ -13,7 +14,7 @@ router.post('/register', register)
 router.post('/login', login)
 
 // get current user -> GET /api/auth/me
-router.get('/me', getMe)
+router.get('/me', authMiddleware, getMe)
 
 
 export default router
