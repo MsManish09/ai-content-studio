@@ -4,10 +4,7 @@ import { UserModel } from "../../models/Users.model.js";
 // implement get me
 export  async function getMeService(userId){
 
-    console.log('me.service  | User id: ', userId)
-
     const user = await UserModel.findById(userId)
-    console.log('user', user)
 
     // if no user
     if(!user){

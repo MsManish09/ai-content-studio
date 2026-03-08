@@ -8,7 +8,6 @@ export async function getMe(req, res, next){
 
         // 200 -> ok
         res.status(200).json({
-            success: true,
             user
         })
 
