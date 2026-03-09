@@ -35,7 +35,9 @@ export default async function historyService({userId, page, limit}){
     return {
         generations,
         total,
-        totalPages
+        totalPages,
+        currentPage: page,
+        hasNextPage: page < totalPages
     }
 
 }

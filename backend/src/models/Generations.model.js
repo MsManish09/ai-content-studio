@@ -37,5 +37,7 @@ const generationSchema = new mongoose.Schema({
 
 }, {timestamps: true})
 
+generationSchema.index({ userId: 1, createdAt: -1 }) // mongodb indexing -> DB optimiztion.
+
 // create model
 export const generationModel =  mongoose.model('Generation', generationSchema)

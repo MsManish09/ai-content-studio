@@ -4,6 +4,7 @@ import authMiddleware from '../middlewares/authMiddleware.js'
 import { generationController } from '../controllers/generation/generation.controller.js'
 import { historyController } from '../controllers/generation/history.controller.js'
 import deleteHistoryController from '../controllers/generation/deleteHistory.controller.js'
+import getIndividualHistory from '../controllers/generation/getIndividualHistory.controller.js'
 
 const GenerationRoutes = express.Router()
 
@@ -13,8 +14,12 @@ GenerationRoutes.post('/generate', authMiddleware, generationController)
 //GET /api/history
 GenerationRoutes.get('/history', authMiddleware, historyController )
 
+//  GET /api/history/:id
+GenerationRoutes.get('/history/:id', authMiddleware, getIndividualHistory)
+
 //  DELETE /api/history/:id
 GenerationRoutes.delete('/history/:id', authMiddleware, deleteHistoryController)
+
 
 
 export default GenerationRoutes
