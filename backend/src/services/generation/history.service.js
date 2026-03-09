@@ -19,14 +19,15 @@ export default async function historyService({userId, page, limit}){
 
     // run both async opertions at the same time -> faster api response
     const [generations, total] = await Promise.all([
-        generationModel
-            .find({ userId })
-            .select("_id prompt template createdAt")
-            .sort({ createdAt: -1 })
-            .skip(skip)
-            .limit(limit),
+            generationModel // get the latest 20 documents
+                .find({ userId })
+                .select("_id prompt template createdAt")
+                .sort({ createdAt: -1 })
+                .skip(skip) // pagintion
+                .limit(limit),
 
-        generationModel.countDocuments({ userId })
+            // get all the total number of generated documents
+            generationModel.countDocuments({ userId })
     ])
 
     // calculate total number of pages with limit
