@@ -3,24 +3,15 @@ import jwt from "jsonwebtoken";
 
 export default function authMiddleware(req, res, next){
 
-    // extract request header
-    const authHeader = req.headers.authorization
-
-    if(!authHeader){
-        return res.status(401).json({
-            message: 'Authorization header missing'
-        })
-    }
-
-    // extract token from header
-    const token = authHeader.split(' ')[1]
+    // extract jwt token form httponly cookie
+    const token = req.cookies.token
 
     if(!token){
         return res.status(401).json({
-            message: 'Token missing'
+            message: 'Not Authenticated'
         })
     }
-
+    
     try {
 
         // verify the jwt token -> use jwt secreat key

@@ -2,6 +2,7 @@ import express from 'express'
 import authRoutes from './routes/authRoutes.js'
 import GenerationRoutes from './routes/generation.routes.js'
 import cors from 'cors'
+import cookieParser from 'cookie-parser'
 
 export const app = new express()
 
@@ -13,6 +14,9 @@ app.use(cors({
     origin: 'http://localhost:5173',
     credentials: true
 }))
+
+// use cookieparser to parser jwt token
+app.use(cookieParser())
 
 // routes
 // app.use('/', (req, res)=>{
