@@ -1,24 +1,21 @@
 
-import { loginUser } from './api/authAPI.js'
+import { getCurrentUser, loginUser } from './api/authAPI.js'
 import './App.css'
+import Login from './pages/auth/Login.jsx'
 
 function App() {
 
-  const data = {
-    email: "manish@test.com",
-    password: "password123"
-  }
+  // async function getMe(){
+  //   const res = await getCurrentUser()
+  //   console.log('Get me cuurent user |  Response: ', res)
+  // }
+  // getMe()
 
-  async function testLogin(){
-    const res = await loginUser(data)
-    console.log('REsponse: ', res)
-  }
-
-  testLogin()
 
   return (
     <>
-      <h1 className=' m-3 bg-blue-700 text-xl text-yellow-400 text-center p-2 font-bold ' >app.jsx</h1>
+      
+      <Login></Login>
     </>
   )
 }

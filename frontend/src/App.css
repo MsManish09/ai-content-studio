@@ -1,1 +1,43 @@
 @import "tailwindcss";
+
+*{
+    margin:none;
+    padding: none;
+    box-sizing: border-box;
+}
+
+:root {
+  /* Base backgrounds */
+  --color-bg-primary: #FFFFFF;
+  --color-bg-secondary: #F7F9FC;
+  --color-bg-tertiary: #EEF2F7;
+
+  /* Primary brand colors */
+  --color-primary: #0B1F3B;        /* Navy */
+  --color-primary-light: #1E3A5F;
+  --color-primary-dark: #071426;
+
+  --color-accent: #FFD54F;         /* Yellow */
+  --color-accent-hover: #FFC107;
+  --color-accent-soft: #FFF4CC;
+
+  /* Text */
+  --color-text-primary: #0B1F3B;
+  --color-text-secondary: #3A4A5E;
+  --color-text-muted: #6B7A90;
+  --color-text-on-primary: #FFFFFF;
+
+  /* Borders */
+  --color-border: #D6DFEA;
+  --color-border-strong: #AAB8C8;
+
+  /* States */
+  --color-success: #1E8E5A;
+  --color-warning: #FFB300;
+  --color-error: #D32F2F;
+
+  /* Utility */
+  --color-white: #FFFFFF;
+  --color-navy: #0B1F3B;
+  --color-yellow: #FFD54F;
+}
