@@ -1,16 +1,25 @@
 import { useForm } from "react-hook-form"
-import { loginUser } from "../../api/authAPI.js";
 import logo from '../../utils/ai-content-studio-logo.png'
 import { useDispatch, useSelector } from "react-redux"
 import { loginThunk } from "../../redux/authSlice"
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function Login(){
 
   const {register, handleSubmit}  = useForm()
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   // login click -> loading display
-  const {loading, error} = useSelector((state)=>state.auth)
+  const {loading, error, isAuthenticated} = useSelector((state)=>state.auth)
+
+  // if authenticated, navigate to dashboard
+  useEffect(()=>{
+    if(isAuthenticated){
+      navigate('/')
+    }
+  }, [isAuthenticated])
   
 
   async function onSubmit(data){
@@ -62,11 +71,12 @@ export default function Login(){
 
           {/* footer -> register link */}
           <div className=" border-t  border-solid border-(--color-accent) w-full p-4 flex justify-center"  >
-            <p className=" text-(--color-accent-soft) ">Don't have an account? <span className=" text-(--color-accent) hover:text-(--color-accent-hover) hover:cursor-pointer " >Sign-up</span> </p>
+            <p className=" text-(--color-accent-soft) ">Don't have an account? <Link to="/register"><span className=" text-(--color-accent) hover:text-(--color-accent-hover) hover:cursor-pointer " >Sign-up</span> </Link> </p>
           </div>
         </div>
       </div>
 
+              
       
 
     </div>

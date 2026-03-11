@@ -1,11 +1,14 @@
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom"
+import { Routes, Route, useNavigate } from "react-router-dom"
 import './App.css'
 import Login from './pages/auth/Login.jsx'
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import Dashboard from "./pages/Dashboard.jsx"
 import { getMeThunk } from "./redux/authSlice.js"
 import FullScreenLoading from "./components/FullScreenLoading.jsx"
+import Register from "./pages/auth/Register.jsx"
+import ProctectedRoutes from "./routes/ProctectedRoutes.jsx"
+import PublicRoutes from "./routes/PublicRoutes.jsx"
+import DashBoard from "./pages/Dashboard.jsx"
 
 function App() {
 
@@ -20,17 +23,7 @@ function App() {
     console.log('getmeThunk | response: ', res)
   }, [])
 
-  useEffect(()=>{
-    console.log('Redux State updated :', authState)
-
-    if(authState.isAuthenticated){
-      navigate('/')
-    }
-    else{
-      navigate('/login')
-    }
-
-  }, [authState])
+  
 
   // display loading, while authenticating
   if(authState.isCheckingAuth){
@@ -41,13 +34,20 @@ function App() {
     
       <Routes>
 
-        {/* proctected pages */}
-        <Route path='/' element={<Dashboard />} />
-        {/* proctected page end */}
+        <Route path='/' element={
+          <ProctectedRoutes>
+            <DashBoard />
+          </ProctectedRoutes>
+        } />
 
-        <Route path="/login" element={<Login />} /> {/* /login loads first. */}
+        <Route path="/login" element={<PublicRoutes>
+          <Login />
+        </PublicRoutes>} /> 
 
-      </Routes>
+        <Route path="/register"element={<PublicRoutes>
+            <Register />
+          </PublicRoutes>} /> 
+        </Routes>
     
   )
 }

@@ -39,7 +39,7 @@ export const getMeThunk = createAsyncThunk(
             return res
         } catch (error) {
             return thunkAPI.rejectWithValue(
-                error
+                error.response?.data?.message
             )
         }
 
