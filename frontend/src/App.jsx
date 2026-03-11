@@ -15,10 +15,10 @@ function App() {
   const navigate = useNavigate()
   
   // auto login -> if valid jwt token
-  // useEffect(()=>{
-  //   const res = dispatch(getMeThunk())
-  //   console.log('getmeThunk | response: ', res)
-  // }, [])
+  useEffect(()=>{
+    const res = dispatch(getMeThunk())
+    console.log('getmeThunk | response: ', res)
+  }, [])
 
   useEffect(()=>{
     console.log('Redux State updated :', authState)
@@ -33,9 +33,9 @@ function App() {
   }, [authState])
 
   // display loading, while authenticating
-  // if(authState.isCheckingAuth){
-  //   return <FullScreenLoading />
-  // }
+  if(authState.isCheckingAuth){
+    return <FullScreenLoading />
+  }
 
   return (
     
