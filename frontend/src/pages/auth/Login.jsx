@@ -1,17 +1,21 @@
-import  { useState } from "react";
+import { useForm } from "react-hook-form"
 import { loginUser } from "../../api/authAPI.js";
 import logo from '../../utils/ai-content-studio-logo.png'
+import { useDispatch, useSelector } from "react-redux"
+import { loginThunk } from "../../redux/authSlice"
 
 export default function Login(){
 
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const {register, handleSubmit}  = useForm()
+  const dispatch = useDispatch()
 
-  async function loginClick(e){
-    e.preventDefault()
+  // login click -> loading display
+  const {loading, error} = useSelector((state)=>state.auth)
+  
 
-    const res = await loginUser({email, password})
-    console.log('Login api resp: ', res)
+  async function onSubmit(data){
+    const result = await dispatch(loginThunk(data))
+    console.log('Thunk result: ', result)
   }
  
 
@@ -32,22 +36,28 @@ export default function Login(){
           <h2 className=" text-[1.25rem] font-bold  " >Welcome Back</h2>
 
           {/* form main */}
-          <form action="" id="loginForm" className=" w-full p-4 ">
+          <form onSubmit={handleSubmit(onSubmit)} id="loginForm" className=" w-full p-4 ">
             {/* email */}
             <div className=" w-full flex flex-col mb-2 gap-1" >
               <label htmlFor="loginFormEmailemail">Email: </label>
-              <input type="email" id="loginFormEmail" required className=" bg-(--color-bg-tertiary) rounded-[5px] p-1 text-(--color-primary-dark) border-2 border-solid border-(--color-primary-light) focus:border-(--color-accent-hover) outline-none " onChange={(e)=>setEmail(e.target.value)} />
+              <input type="email" id="loginFormEmail" required className=" bg-(--color-bg-tertiary) rounded-[5px] p-1 text-(--color-primary-dark) border-2 border-solid border-(--color-primary-light) focus:border-(--color-accent-hover) outline-none " {...register("email")} />
             </div>
 
             {/* password */}
             <div className=" w-full flex flex-col mb-2 gap-1">
               <label htmlFor="loginFormPassword">Password: </label>
-              <input type="password" id="loginFormPassword" required className=" bg-(--color-bg-tertiary) rounded-[5px] p-1 text-(--color-primary-dark) border-2 border-solid border-(--color-primary-light) focus:border-(--color-accent-hover) outline-none " onChange={(e)=>setPassword(e.target.value)}  />
+              <input type="password" id="loginFormPassword" required className=" bg-(--color-bg-tertiary) rounded-[5px] p-1 text-(--color-primary-dark) border-2 border-solid border-(--color-primary-light) focus:border-(--color-accent-hover) outline-none " {...register("password")}  />
               
             </div>
 
+            {error && (
+              <div className="text-red-500 text-sm mb-2 text-center">
+                {error}
+              </div>
+            )}
+
             {/* login btn */}
-            <button className=" w-full m-auto  bg-(--color-accent) hover:bg-(--color-accent-hover) p-2 text-(--color-primary-dark) font-bold rounded-[10px] hover:scale-95 mt-2 " onClick={loginClick} >Login</button>
+            <button type="submit" disabled={loading} className=" w-full m-auto  bg-(--color-accent) hover:bg-(--color-accent-hover) p-2 text-(--color-primary-dark) font-bold rounded-[10px] hover:scale-95 mt-2 " >{loading ? "Logging in..." : "Login"}</button>
           </form>
 
           {/* footer -> register link */}
