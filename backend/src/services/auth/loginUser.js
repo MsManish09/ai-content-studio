@@ -33,6 +33,14 @@ export default async function loginUser({email, password}){
     // if password correct -> generate token
     const token = generateToken(user._id)
 
+    // reset usage limit for new day
+    const today = new Date().toDateString()
+    if(user.usageDate?.toDateString() !== today){
+        user.usageCount = 0 
+        user.tokensUsedToday = 0
+        user.usageDate = new Date()
+    }
+
     // return token + filtered user data
     return{
         token,
@@ -41,7 +49,9 @@ export default async function loginUser({email, password}){
             name: user.name,
             email: user.email,
             plan: user.plan,
-            usageCount: user.usageCount
+            usageCount: user.usageCount,
+            tokensUsedToday: user.tokensUsedToday,
+            totalTokensUsed: user.totalTokensUsed
         }
     }
 

@@ -38,7 +38,9 @@ export default async function registerUser({name, email, password}){
                 name: user.name,
                 email: user.email,
                 plan: user.plan,
-                usageCount: user.usageCount
+                usageCount: user.usageCount,
+                tokensUsedToday: user.tokensUsedToday,
+                totalTokensUsed: user.totalTokensUsed
             }
         }
 }
