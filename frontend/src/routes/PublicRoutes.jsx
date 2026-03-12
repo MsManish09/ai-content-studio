@@ -6,9 +6,15 @@ export default function PublicRoutes({children}){
 
     const {isAuthenticated} = useSelector((state)=>state.auth)
 
+    if(isCheckingAuth){
+        return <FullScreenLoading/>
+    }
+
     if(isAuthenticated){
         return <Navigate to="/" />
     }
+
+    
 
     return children
 

@@ -1,6 +1,6 @@
 
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getCurrentUser, loginUser } from "../api/authAPI.js";
+import { getCurrentUser, loginUser, logoutUser } from "../api/authAPI.js";
 
 const initialState = {
     user: null,
@@ -46,6 +46,20 @@ export const getMeThunk = createAsyncThunk(
     }
 )
 
+export const logoutThunk = createAsyncThunk(
+    "auth/logout",
+    async(arg, thunkAPI)=>{
+        try {
+            const res = await logoutUser()
+            return res
+        } catch (error) {
+            return thunkAPI.rejectWithValue(
+                error.response?.data?.message || 'Logout Unsuccessful'
+            )
+        }
+    } 
+)
+
 const authSlice = createSlice({
     name: "auth",
     initialState,
@@ -54,7 +68,6 @@ const authSlice = createSlice({
         logout: (state)=>{
             state.user = null
             state.isAuthenticated = false
-
         }
     },
     extraReducers: (builder)=>{
@@ -65,20 +78,21 @@ const authSlice = createSlice({
         })
         .addCase(loginThunk.fulfilled, (state, action)=>{
             state.loading = false
-            state.user = action.payload
+            state.user = action.payload.user
             state.isAuthenticated = true
         })
         .addCase(loginThunk.rejected, (state, action)=>{
             state.loading = false
             state.error = action.payload
         })
+         // getMeThunk
         .addCase(getMeThunk.pending, (state)=>{
-            state.loading = true
+            state.isCheckingAuth = true
             state.error = null
         })
         .addCase(getMeThunk.fulfilled, (state, action)=>{
             state.loading = false
-            state.user = action.payload
+            state.user = action.payload.user
             state.isAuthenticated = true
             state.isCheckingAuth = false   // done checking
         })
@@ -87,6 +101,20 @@ const authSlice = createSlice({
             state.error = action.payload
             state.isCheckingAuth = false   //  done checking
         } )
+        // logoutThunk
+        .addCase(logoutThunk.pending, (state)=>{
+            state.loading = true
+        })
+        .addCase(logoutThunk.fulfilled, (state)=>{
+            state.user = null
+            state.isAuthenticated = false
+            state.error = null
+            state.loading = false
+            state.isCheckingAuth = false
+        })
+        .addCase(logoutThunk.rejected, (state, action)=>{
+            state.error = action.payload
+        })
     }
 })
 

@@ -8,6 +8,12 @@ export async function loginUser(data){
     return res.data
 }
 
+// function to call logout api
+export async function logoutUser(){
+    const res = await axiosInstance.post('/auth/logout')
+    return res.data
+}
+
 // call registration api
 export async function registerUser(data){
     

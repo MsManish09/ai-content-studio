@@ -21,6 +21,7 @@ function App() {
   useEffect(()=>{
     const res = dispatch(getMeThunk())
     console.log('getmeThunk | response: ', res)
+    console.log('Auth state :', authState)
   }, [])
 
   
