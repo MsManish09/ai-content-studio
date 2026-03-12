@@ -17,7 +17,7 @@ function App() {
   const authState  = useSelector( (state)=> state.auth )
   const navigate = useNavigate()
   
-  // auto login -> if valid jwt token
+  // auto login -> if valid jwt token (session restore)
   useEffect(()=>{
     const res = dispatch(getMeThunk())
     console.log('getmeThunk | response: ', res)

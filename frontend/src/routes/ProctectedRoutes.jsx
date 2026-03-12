@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux"
 import { Navigate } from "react-router-dom"
+import FullScreenLoading from "../components/FullScreenLoading"
 
 
 export default function ProctectedRoutes({children}){
@@ -7,7 +8,7 @@ export default function ProctectedRoutes({children}){
     const {isAuthenticated, isCheckingAuth} = useSelector((state)=>state.auth)
 
     if(isCheckingAuth){
-        return null
+        return <FullScreenLoading />
     }
 
     if(!isAuthenticated){
