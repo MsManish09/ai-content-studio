@@ -9,6 +9,7 @@ import Register from "./pages/auth/Register.jsx"
 import ProctectedRoutes from "./routes/ProctectedRoutes.jsx"
 import PublicRoutes from "./routes/PublicRoutes.jsx"
 import DashBoard from "./pages/Dashboard.jsx"
+import UserDetails from "./pages/auth/UserDetails.jsx"
 
 function App() {
 
@@ -47,8 +48,21 @@ function App() {
 
         <Route path="/register"element={<PublicRoutes>
             <Register />
-          </PublicRoutes>} /> 
-        </Routes>
+        </PublicRoutes>} /> 
+
+        <Route 
+          path="/profile" 
+          element={
+            <ProctectedRoutes>
+              <UserDetails />
+            </ProctectedRoutes>
+          } 
+        />
+
+
+
+      </Routes>
+
     
   )
 }

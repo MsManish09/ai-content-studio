@@ -4,7 +4,7 @@ import { Navigate } from "react-router-dom"
 
 export default function PublicRoutes({children}){
 
-    const {isAuthenticated} = useSelector((state)=>state.auth)
+    const {isAuthenticated, isCheckingAuth} = useSelector((state)=>state.auth)
 
     if(isCheckingAuth){
         return <FullScreenLoading/>
