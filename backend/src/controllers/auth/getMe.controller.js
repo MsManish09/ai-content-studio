@@ -8,11 +8,13 @@ export async function getMe(req, res, next){
 
         // 200 -> ok
         res.status(200).json({
-            user
+            success: true,
+            user // send user
         })
 
     } catch (error) {
         res.status(400).json({
+            success: false,
             message: error.message
         })
     }
