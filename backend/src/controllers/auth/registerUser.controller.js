@@ -19,6 +19,10 @@ export async function register(req, res, next){
             user
         })
     } catch (error) {
+        res.status(401).json({
+            success: false,
+            message: error.message
+        })
         next(error)
     }
 
