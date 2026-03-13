@@ -5,13 +5,14 @@ import { IoPersonCircleSharp } from "react-icons/io5";
 import { FaSignOutAlt } from "react-icons/fa";
 import { logoutThunk } from '../redux/authSlice';
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 
 export default function NavBar(){
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     // logout functionality
     async function handleLogout(){
@@ -28,10 +29,14 @@ export default function NavBar(){
 
     }
 
+    function handleClick(){
+        navigate('/')
+    }
+
     return(
         <nav className=' flex border-b border-solid border-(--color-text-muted) justify-evenly items-center fixed-top' >
             {/* logo */}
-            <div className=' w-[150px] h-[15vh] flex justify-center items-center' >
+            <div onClick={()=> {handleClick()}} className=' w-[150px] h-[15vh] flex justify-center items-center hover:scale-110 hover:cursor-pointer' >
                 <img src={logo} alt="" />
             </div>
             
