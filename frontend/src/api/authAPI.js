@@ -18,6 +18,7 @@ export async function logoutUser(){
 export async function registerUser(data){
     
     const res = await axiosInstance.post('/auth/register', data) // data -> request body
+    console.log('auth api registerUser | respoonse: ', res)
     return res.data
 
 }

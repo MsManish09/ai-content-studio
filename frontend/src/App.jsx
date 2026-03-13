@@ -10,6 +10,7 @@ import ProctectedRoutes from "./routes/ProctectedRoutes.jsx"
 import PublicRoutes from "./routes/PublicRoutes.jsx"
 import DashBoard from "./pages/Dashboard.jsx"
 import UserDetails from "./pages/auth/UserDetails.jsx"
+import {Toaster} from "react-hot-toast"
 
 function App() {
 
@@ -33,6 +34,14 @@ function App() {
   }
 
   return (
+    <>
+
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          duration:3000
+        }}
+      />
     
       <Routes>
 
@@ -63,6 +72,7 @@ function App() {
 
       </Routes>
 
+    </>
     
   )
 }
