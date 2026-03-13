@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { loginThunk } from "../../redux/authSlice"
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import toast from "react-hot-toast";
 
 export default function Login(){
 
@@ -23,8 +24,19 @@ export default function Login(){
   
 
   async function onSubmit(data){
-    const result = await dispatch(loginThunk(data))
-    console.log('Thunk result: ', result)
+    
+    try {
+      const result = await dispatch(loginThunk(data)).unwrap()
+      console.log('Thunk result: ', result)
+      toast.success("Login Successful")
+    } catch (error) {
+      const message = error.response?.data?.message || 'login failed'
+      console.log('Error loging-In :', error)
+      toast.error(message)
+    }
+
+    // toast.error(message)
+
   }
  
 
