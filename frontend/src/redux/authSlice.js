@@ -1,6 +1,6 @@
 
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getCurrentUser, loginUser, logoutUser } from "../api/authAPI.js";
+import { getCurrentUser, loginUser, logoutUser, registerUser } from "../api/authAPI.js";
 
 const initialState = {
     user: null,
@@ -9,6 +9,23 @@ const initialState = {
     error: null,
     isCheckingAuth: true, 
 }
+
+// register thunk
+export const registerThunk = createAsyncThunk(
+    'auth/register',
+    async(data, thunkAPI)=>{
+
+        try {
+            await registerUser(data)
+            return true
+        } catch (error) {
+            return thunkAPI.rejectWithValue(
+                error.response?.data?.message
+            )
+        }
+
+    }
+)
 
 // login thunk
 export const loginThunk = createAsyncThunk(
@@ -114,6 +131,10 @@ const authSlice = createSlice({
         })
         .addCase(logoutThunk.rejected, (state, action)=>{
             state.error = action.payload
+        })
+        // registerThunk
+        .addCase(registerThunk.fulfilled, (state)=>{
+            state.loading=false
         })
     }
 })

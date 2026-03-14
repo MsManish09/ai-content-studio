@@ -3,10 +3,14 @@ import logo from '../../src/utils/fevicon.png'
 import { BsChatLeftText } from "react-icons/bs";
 import HistoryPills from './HistoryPills';
 import { HiX } from "react-icons/hi";
+import { useSelector } from 'react-redux';
 
 export default function Sidebar({isOpen, setIsOpen}){
 
-    const loop = [1, 2 ,3, 4 ,5 ,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+    const generationState = useSelector((state)=> state.generation)
+    const generatedContent = generationState?.generations?.data || []
+    console.log('Generated content: ', generatedContent)
+ 
 
     return(
 
@@ -40,10 +44,19 @@ export default function Sidebar({isOpen, setIsOpen}){
                 <div className='  max-w-full  max-h-[80vh] overflow-y-auto bg-(--color-primary-lighter) flex flex-col custom-scrollbar p-2 text-gray-200 text-[1rem] ' >
 
                     {/* generated pills */}
-                    {
-                        loop.map((num)=>{
-                            return <HistoryPills num={num} />
-                        })
+                    {   generatedContent.length === 0 ? (
+                            <p className="text-center text-gray-400 py-4">
+                                No generations yet. Start generating ✨
+                            </p>
+
+                        ) : (
+                                generatedContent.map((item, index)=>{
+                                    return <HistoryPills 
+                                    key={item._id}
+                                    index={index + 1}
+                                    data={item}  />
+                                })
+                            )
                     }
 
                 </div>

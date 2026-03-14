@@ -5,6 +5,7 @@ import { loginThunk } from "../../redux/authSlice"
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
+import { historyThunk } from "../../redux/generationSlice";
 
 export default function Login(){
 
@@ -15,12 +16,15 @@ export default function Login(){
   // login click -> loading display
   const {loading, error, isAuthenticated} = useSelector((state)=>state.auth)
 
+
   // if authenticated, navigate to dashboard
   useEffect(()=>{
     if(isAuthenticated){
       navigate('/')
     }
   }, [isAuthenticated])
+
+
   
 
   async function onSubmit(data){

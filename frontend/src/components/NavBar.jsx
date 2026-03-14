@@ -7,17 +7,20 @@ import { MdOutlineChat } from "react-icons/md";
 import { logoutThunk } from '../redux/authSlice';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import {clearGenerationState} from '/src/redux/generationSlice.js'
 
 export default function NavBar({setIsSidebarOpen}){
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
+    // funciton to logout
     async function handleLogout(){
             
         try {
 
             await dispatch(logoutThunk()).unwrap()
+            dispatch(clearGenerationState())
 
         } catch (error) {
 

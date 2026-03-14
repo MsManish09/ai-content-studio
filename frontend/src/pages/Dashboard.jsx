@@ -1,11 +1,18 @@
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import NavBar from "../components/NavBar.jsx"
 import Sidebar from "../components/SideBar.jsx"
+import { useSelector } from "react-redux"
 
 export default function DashBoard(){
 
         const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+        const generationState  = useSelector((state)=> state.generation)
+
+        // show generation results
+        useEffect(()=>{
+            console.log('Generation State: ', generationState)
+        },[generationState])
 
 
     return(

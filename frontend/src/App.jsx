@@ -11,12 +11,14 @@ import PublicRoutes from "./routes/PublicRoutes.jsx"
 import DashBoard from "./pages/Dashboard.jsx"
 import UserDetails from "./pages/auth/UserDetails.jsx"
 import {Toaster} from "react-hot-toast"
+import { historyThunk } from "./redux/generationSlice.js"
 
 function App() {
 
   // dispatch getMeThunk() -> call getme api -> autologin - with valid jwt
   const dispatch = useDispatch()
   const authState  = useSelector( (state)=> state.auth )
+  const generationState = useSelector((state)=>state.generation)
   const navigate = useNavigate()
   
   // auto login -> if valid jwt token (session restore)
@@ -26,6 +28,12 @@ function App() {
     console.log('Auth state :', authState)
   }, [])
 
+  // if user is logged in  ->  load history
+  useEffect(()=>{
+    if(authState.user){
+      dispatch(historyThunk())
+    }
+  }, [authState.user])
   
 
   // display loading, while authenticating

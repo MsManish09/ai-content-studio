@@ -8,9 +8,10 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from '../../api/authAPI.js';
-import { getMeThunk } from '../../redux/authSlice.js';
+import { getMeThunk, registerThunk } from '../../redux/authSlice.js';
 import WelcomeModal from '../../components/WelcomeModel.jsx';
 import toast from 'react-hot-toast';
+import { historyThunk } from '../../redux/generationSlice.js';
 
 
 export default function Register(){
@@ -33,6 +34,8 @@ export default function Register(){
     console.log('Auth state :', authState)
   }, [authState])
 
+
+
   // on click -> navigate to login page
   function handleloginNav(){
     navigate('/login')
@@ -51,10 +54,14 @@ export default function Register(){
 
     // call registration api layer
     try {
-      const res = await registerUser(data)
-      console.log('Registration API RESPONSE: ',res)
+
+      console.log('data: ', data)
+      
+      await dispatch(registerThunk(data)).unwrap()
+
       toast.success("Registration successful  🎉")
-      setNewUser(res.user)
+      setNewUser(data)
+      console.log('Nuew user: ', newUser)
       setshowWelcome(true)
 
     } catch (error) {
