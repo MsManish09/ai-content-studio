@@ -1,18 +1,55 @@
-import { useDispatch, useSelector } from "react-redux"
-import {  logoutThunk } from "../redux/authSlice.js"
-import { useEffect } from "react"
-import { Navigate, useNavigate } from "react-router-dom"
+
+import { useState } from "react"
 import NavBar from "../components/NavBar.jsx"
+import Sidebar from "../components/SideBar.jsx"
 
 export default function DashBoard(){
 
+        const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+
 
     return(
-        <div className=" w-[100vw] h-[100vh] bg-(--color-primary) relative" >
+        <div className="flex w-[100vw] h-[100vh] bg-(--color-primary) relative" >
 
-            <NavBar />
+            {/* mobile overlay */}
+            {isSidebarOpen && (
+                <div
+                     className="fixed inset-0 bg-black/40 z-40 md:hidden" onClick={()=>setIsSidebarOpen(false)}
+                ></div>
+            )}
 
-            <h1 className=" text-[2.5rem] text-(--color-accent-hover) font-extrabold " > DashBoard </h1>
+            {/* side bar -> history  */}
+            <Sidebar 
+                isOpen={isSidebarOpen}
+                setIsOpen={setIsSidebarOpen}
+            />
+
+            {/* Main Area */}
+            <div className="flex flex-col flex-1 ">
+
+                <NavBar 
+                    setIsSidebarOpen={setIsSidebarOpen}
+                />
+
+                
+
+                {/* Main workspace */}
+                <div className="flex-1 p-6">
+
+                    {/* Generated result */}
+                    <div>
+
+                    </div>
+
+                    {/* Input area */}
+                    <div>
+
+                    </div>
+
+                </div>
+
+            </div>
+            
 
         </div>
     )
