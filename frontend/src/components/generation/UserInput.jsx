@@ -6,7 +6,7 @@ export default function GenerateInput(){
 
     const [prompt , setPrompt] = useState("")
     const [template , setTemplate] = useState("blog")
-    const [error, setError] = useState(null)
+    const [err, setError] = useState(null)
     const dispatch = useDispatch()
 
     const generationState = useSelector((state)=> state.generation)
@@ -27,6 +27,7 @@ export default function GenerateInput(){
         } catch (error) {
             console.log('user input | error:', error)
             setError(error)
+            console.log('Error usestate: ', err)
         }
     }
 

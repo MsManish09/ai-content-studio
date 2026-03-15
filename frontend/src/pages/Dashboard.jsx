@@ -20,6 +20,7 @@ export default function DashBoard(){
     return(
         <div className="flex w-[100vw] h-[100vh] bg-(--color-primary) relative" >
 
+
             {/* mobile overlay */}
             {isSidebarOpen && (
                 <div
