@@ -77,6 +77,10 @@ function promptBuilder(prompt, template){
         return `Write a professional linkedin post about ${prompt}. Be concise and use simple words`
     }
 
+    if(template.toLowerCase() === 'tweet'){
+        return `Write a professional tweet post about ${prompt}. Be concise and use simple words and twitter friendly.`
+    }
+
     throw new Error('Invalid template')
 
 }

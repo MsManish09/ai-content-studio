@@ -32,6 +32,7 @@ export default async function historyService({userId, page, limit}){
 
     // calculate total number of pages with limit
     const totalPages = Math.ceil( total / limit )
+    
     return {
         generations,
         total,

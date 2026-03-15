@@ -18,7 +18,7 @@ const generationSchema = new mongoose.Schema({
 
     template: {
         type: String, 
-        enum: ["blog", "instagram", "linkedin"],
+        enum: ["blog", "instagram", "linkedin", "tweet"],
         required: true
     },
 
