@@ -4,12 +4,14 @@ import { BsChatLeftText } from "react-icons/bs";
 import HistoryPills from './HistoryPills';
 import { HiX } from "react-icons/hi";
 import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 export default function Sidebar({isOpen, setIsOpen}){
 
     const generationState = useSelector((state)=> state.generation)
     const generatedContent = generationState?.generations?.data || []
     console.log('Generated content: ', generatedContent)
+
  
 
     return(

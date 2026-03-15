@@ -3,13 +3,15 @@ import { useEffect, useState } from "react"
 import NavBar from "../components/NavBar.jsx"
 import Sidebar from "../components/SideBar.jsx"
 import { useSelector } from "react-redux"
+import UserInput from "../components/generation/UserInput.jsx"
+import GenerationDisplay from "../components/generation/GenerationDisplay.jsx"
 
 export default function DashBoard(){
 
         const [isSidebarOpen, setIsSidebarOpen] = useState(false)
         const generationState  = useSelector((state)=> state.generation)
 
-        // show generation results
+        // show generation history results
         useEffect(()=>{
             console.log('Generation State: ', generationState)
         },[generationState])
@@ -32,7 +34,7 @@ export default function DashBoard(){
             />
 
             {/* Main Area */}
-            <div className="flex flex-col flex-1 ">
+            <div className="flex flex-col flex-1 w-full  ">
 
                 <NavBar 
                     setIsSidebarOpen={setIsSidebarOpen}
@@ -41,17 +43,21 @@ export default function DashBoard(){
                 
 
                 {/* Main workspace */}
-                <div className="flex-1 p-6">
+                <div className="flex flex-1 p-6 w-full h-[80vh] flex-col justify-center items-center  gap-[2rem] ">
+
+                    {/* generation display component */}
+                        <GenerationDisplay />
 
                     {/* Generated result */}
-                    <div>
+                    {/* <div className=" max-h-[60vh] p-4 w-[80%] text-(--color-text-on-primary) overflow-y-auto custom-scrollbar " >
 
-                    </div>
+                        
+                        
+                    </div> */}
 
                     {/* Input area */}
-                    <div>
-
-                    </div>
+                        <UserInput />
+                    
 
                 </div>
 

@@ -11,7 +11,7 @@ import PublicRoutes from "./routes/PublicRoutes.jsx"
 import DashBoard from "./pages/Dashboard.jsx"
 import UserDetails from "./pages/auth/UserDetails.jsx"
 import {Toaster} from "react-hot-toast"
-import { historyThunk } from "./redux/generationSlice.js"
+import { generateThunk, historyThunk } from "./redux/generationSlice.js"
 
 function App() {
 
@@ -34,6 +34,13 @@ function App() {
       dispatch(historyThunk())
     }
   }, [authState.user])
+
+  // when ever current response changes -> call history api -> to update history component
+  useEffect(()=>{
+    if(generationState.currentResponse){
+      dispatch( historyThunk() )
+    }
+  }, [generationState.currentResponse])
   
 
   // display loading, while authenticating
