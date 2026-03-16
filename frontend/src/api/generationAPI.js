@@ -21,3 +21,9 @@ export async function deleteIndividualHistory(id){
     const res = await axiosInstance.delete(`/history/${id}`)
     return res.data
 }
+
+// function to get individual generation details
+export async function individualGenerationDetails(id){
+    const res = await axiosInstance.get(`/history/${id}`)
+    return res.data
+}

@@ -3,8 +3,10 @@ import { useEffect, useState } from "react"
 import NavBar from "../components/NavBar.jsx"
 import Sidebar from "../components/SideBar.jsx"
 import { useSelector } from "react-redux"
-import UserInput from "../components/generation/UserInput.jsx"
-import GenerationDisplay from "../components/generation/GenerationDisplay.jsx"
+import { Route, Routes } from "react-router-dom"
+import MainWorkspace from "../components/MainWorkspace.jsx"
+import ContentDetailsPage from "./ContentDetailsPage.jsx"
+
 
 export default function DashBoard(){
 
@@ -44,22 +46,11 @@ export default function DashBoard(){
                 
 
                 {/* Main workspace */}
-                <div className="flex flex-1 p-6 w-full h-[80vh] flex-col justify-center items-center  gap-[2rem] ">
-
-                    {/* generation display component */}
-                        <GenerationDisplay />
-
-                    {/* Generated result */}
-                    {/* <div className=" max-h-[60vh] p-4 w-[80%] text-(--color-text-on-primary) overflow-y-auto custom-scrollbar " >
-
-                        
-                        
-                    </div> */}
-
-                    {/* Input area */}
-                        <UserInput />
-                    
-
+                <div>
+                    <Routes>
+                        <Route path="/" element={<MainWorkspace/>}/>
+                        <Route path="/generation/:id" element={<ContentDetailsPage/>}/>
+                    </Routes>
                 </div>
 
             </div>

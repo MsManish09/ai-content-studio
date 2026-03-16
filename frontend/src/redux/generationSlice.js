@@ -111,7 +111,7 @@ const generationSlice = createSlice({
         .addCase(deleteIndividualHistoryThunk.fulfilled, (state, action)=>{
             
             state.loading = false
-            state.generations = state.generations.data.filter(
+            state.generations.data = state.generations.data.filter(
                 item => item._id !== action.payload._id
             )
         })

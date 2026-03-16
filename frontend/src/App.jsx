@@ -61,7 +61,7 @@ function App() {
     
       <Routes>
 
-        <Route path='/' element={
+        <Route path='/*' element={
           <ProctectedRoutes>
             <DashBoard />
           </ProctectedRoutes>
