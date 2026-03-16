@@ -4,19 +4,26 @@ import { deleteIndividualHistory, generateContent, getHistory } from "../api/gen
 
 // initial state
 const initialState = {
-    generations: [],
-    loading: false,
-    error: null,
+    generations: {
+        data: [],
+        page: 1,
+        totalPages: 1
+    },
+    isGenerating:false,
+    isLoadingHistory:false,
+    isDeleting:false,
+    isLoadingMore:false,
+    error:null,
     currentResponse: null
 }
 
 // get generation history Thunk
 export const historyThunk = createAsyncThunk(
     'generation/history',
-    async(_, thunkAPI)=>{
+    async(page = 1, thunkAPI)=>{
 
         try {
-            const res = await getHistory()
+            const res = await getHistory(page)
             
             return res 
         } catch (error) {
@@ -73,8 +80,15 @@ const generationSlice = createSlice({
     reducers :{
         // on user logout
         clearGenerationState: (state)=>{
-            state.generations = []
-            state.loading = false
+            state.generations = {
+                data: [],
+                page: 1,
+                totalPages: 1
+            }
+            state.isGenerating = false
+            state.isLoadingHistory = false
+            state.isDeleting = false
+            state.isLoadingMore = false
             state.error = null
             state.currentResponse = null
         } 
@@ -83,40 +97,43 @@ const generationSlice = createSlice({
         builder
         // get history thunk
         .addCase(historyThunk.pending, (state)=>{
-            state.loading = true
+            state.isLoadingHistory = true
         })
         .addCase(historyThunk.fulfilled, (state, action)=>{
-            state.loading = false
-            state.generations = action.payload
+            state.isLoadingHistory = false
+            state.generations.data = action.payload.data
+            state.generations.page = action.payload.page
+            state.generations.totalPages = action.payload.totalPages
         })
         .addCase(historyThunk.rejected, (state, action)=>{
-            state.loading = false
+            state.isLoadingHistory = false
             state.error = action.payload
         })
         .addCase(generateThunk.pending, (state)=>{
-            state.loading = true
+            state.isGenerating = true
         })
         .addCase(generateThunk.fulfilled, (state, action)=>{
-            state.loading = false
+            state.isGenerating = false
             state.currentResponse = action.payload
+            state.generations.data.unshift(action.payload)
+            
         })
         .addCase(generateThunk.rejected, (state, action)=>{
-            state.loading = false
+            state.isGenerating = false
             state.error = action.payload
         })
         // history deletion thunk
         .addCase(deleteIndividualHistoryThunk.pending, (state)=>{
-            state.loading = true
+            state.isDeleting = true
         })
         .addCase(deleteIndividualHistoryThunk.fulfilled, (state, action)=>{
-            
-            state.loading = false
+            state.isDeleting = false
             state.generations.data = state.generations.data.filter(
                 item => item._id !== action.payload._id
             )
         })
         .addCase(deleteIndividualHistoryThunk.rejected, (state, action)=>{
-            state.loading = false
+            state.isDeleting = false
             state.error = action.payload
         })
         

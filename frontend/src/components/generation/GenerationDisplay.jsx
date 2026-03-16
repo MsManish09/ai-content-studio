@@ -7,7 +7,7 @@ import { useEffect, useRef } from "react"
 
 export default function GenerationDisplay(){
 
-    const { currentResponse , loading , error} = useSelector( (state)=>state.generation )
+    const { currentResponse , isGenerating , error} = useSelector( (state)=>state.generation )
 
     // autoscroll generation response
     const bottomRef = useRef(null)
@@ -27,7 +27,7 @@ export default function GenerationDisplay(){
         <div  className="  w-full max-w-4xl flex-1  min-h-[300px] max-h-[60vh] p-6 overflow-y-auto custom-scrollbar ">
 
             {/* empty state -> no generation request */}
-            {!currentResponse && !loading && (
+            {!currentResponse && !isGenerating && (
 
                 <div className=" h-full flex flex-col justify-center items-center text-center text-(--color-text-muted) ">
 
@@ -45,7 +45,7 @@ export default function GenerationDisplay(){
 
             {/* loading state -> while generaiton API is called */}
 
-            {loading && (
+            {isGenerating && (
 
                 <div className=" h-full flex flex-col justify-center items-center text-center text-(--color-text-muted) ">
 
@@ -57,7 +57,7 @@ export default function GenerationDisplay(){
 
             {/* generation api  response */}
 
-            {currentResponse && !loading && (
+            {currentResponse && !isGenerating && (
 
                 <div className=" whitespace-pre-wrap text-(--color-text-on-primary) leading-relaxed ">
 

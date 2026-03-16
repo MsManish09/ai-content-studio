@@ -8,11 +8,9 @@ import { useEffect } from 'react';
 
 export default function Sidebar({isOpen, setIsOpen}){
 
-    const generationState = useSelector((state)=> state.generation)
-    const generatedContent = generationState?.generations?.data || []
-    console.log('Generated content: ', generatedContent)
-
- 
+    const {generations, isLoadingHistory} = useSelector((state)=> state.generation)
+    const generatedContent = generations?.data || []
+    // console.log('Generated content: ', generatedContent)
 
     return(
 
@@ -45,13 +43,22 @@ export default function Sidebar({isOpen, setIsOpen}){
                 {/* generated content pills */}
                 <div className='  max-w-full  max-h-[80vh] overflow-y-auto bg-(--color-primary-lighter) flex flex-col custom-scrollbar p-2 text-gray-200 text-[1rem] ' >
 
+                    {/* loading history */}
+                    {
+                        isLoadingHistory && (
+                            <p className="text-center">
+                                Loading history...
+                            </p>
+                        )
+                    }
+
                     {/* generated pills */}
                     {   generatedContent.length === 0 ? (
                             <p className="text-center text-gray-400 py-4">
                                 No generations yet. Start generating ✨
                             </p>
 
-                        ) : (
+                        ) : (                                
                                 generatedContent.map((item, index)=>{
                                     return <HistoryPills 
                                     key={item._id}

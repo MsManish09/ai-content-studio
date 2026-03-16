@@ -1,7 +1,7 @@
 
 import { MdDeleteForever } from "react-icons/md";
 import { deleteIndividualHistoryThunk } from "../redux/generationSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -13,6 +13,7 @@ export default function HistoryPills({index, data}){
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [err, setError] = useState(null)
+    const { isDeleting } = useSelector( state=>state.generation )
 
     // individual history pill click 
     function handleClick(){
@@ -27,10 +28,10 @@ export default function HistoryPills({index, data}){
 
         try {
            const res =  await dispatch( deleteIndividualHistoryThunk(data._id) ).unwrap()
-           console.log( 'delete history pill response: ', res )
+        //    console.log( 'delete history pill response: ', res )
            toast.success('Deletion successful')
         } catch (error) {
-            console.log('error deleting history: ', error)
+            // console.log('error deleting history: ', error)
             setError(error)
             toast.error(error)
         }
@@ -50,7 +51,7 @@ export default function HistoryPills({index, data}){
 
             </div>
 
-            <MdDeleteForever onClick={handleDelete} className=" h-[1.2rem] w-[1.2rem] hover:text-(--color-error) hover:scale-105 mr-2 " />
+            <MdDeleteForever onClick={handleDelete} className={ ` h-[1.2rem] w-[1.2rem] hover:text-(--color-error) hover:scale-105 mr-2 ${isDeleting ? "opacity-40 pointer-events-none" : "hover:text-(--color-error)"} `}  />
 
         </div>
     )

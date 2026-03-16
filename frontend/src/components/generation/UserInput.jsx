@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { generateThunk } from "../../redux/generationSlice.js"
 import { useDispatch, useSelector } from "react-redux"
+import toast from "react-hot-toast"
 
 export default function GenerateInput(){
 
@@ -10,6 +11,7 @@ export default function GenerateInput(){
     const dispatch = useDispatch()
 
     const generationState = useSelector((state)=> state.generation)
+    const { isGenerating } = generationState
 
     useEffect(()=>{
         if(generationState.error){
@@ -17,10 +19,14 @@ export default function GenerateInput(){
         }
     },[generationState.error])
 
-    
 
     // generation funcitonlaity
     async function handleGenerate(){
+
+        // preventing duplicate submission
+        if(isGenerating){
+            return
+        }
 
         // prompt validation
         if(!prompt.trim()){
@@ -28,17 +34,18 @@ export default function GenerateInput(){
             return
         }
 
-        console.log(prompt , template)
+
+        // console.log(prompt , template)
         try {
-            const res = await dispatch( generateThunk({prompt, template}) ).unwrap()
-            console.log('generation thunk response: ', res)
-            // clear prompt input
-            setPrompt("")
+                await dispatch( generateThunk({prompt, template}) ).unwrap()
+            
+                // clear prompt input
+                setPrompt("")
 
         } catch (error) {
-            console.log('user input | error:', error)
+            // console.log('user input | error:', error)
             setError(error)
-            console.log('Error usestate: ', err)
+            toast.error(error)
         }
     }
 
@@ -77,8 +84,8 @@ export default function GenerateInput(){
 
                     {/* Button */}
 
-                    <button onClick={handleGenerate} className=" flex-1 md:flex-none px-6 py-3 rounded-lg bg-(--color-primary)  text-white font-medium hover:bg-(--color-primary-light) transition " >
-                        Generate
+                    <button onClick={handleGenerate} disabled={isGenerating} className=" flex-1 md:flex-none px-6 py-3 rounded-lg bg-(--color-primary)  text-white font-medium hover:bg-(--color-primary-light) transition " >
+                        {isGenerating ? 'Generating...' : 'Generate'}
                     </button>
 
                 </div>
