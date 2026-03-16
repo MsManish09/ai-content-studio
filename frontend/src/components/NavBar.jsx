@@ -20,6 +20,7 @@ export default function NavBar({setIsSidebarOpen}){
         try {
 
             await dispatch(logoutThunk()).unwrap()
+            // empty generation state
             dispatch(clearGenerationState())
 
         } catch (error) {
@@ -29,10 +30,9 @@ export default function NavBar({setIsSidebarOpen}){
         }
     }
 
+    // nvigate to home page on logo click
     function handleClick(){
-
         navigate('/')
-
     }
 
     return(

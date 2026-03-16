@@ -17,12 +17,23 @@ export default function GenerateInput(){
         }
     },[generationState.error])
 
+    
+
+    // generation funcitonlaity
     async function handleGenerate(){
+
+        // prompt validation
+        if(!prompt.trim()){
+            alert("Prompt required")
+            return
+        }
+
         console.log(prompt , template)
         try {
-            
             const res = await dispatch( generateThunk({prompt, template}) ).unwrap()
             console.log('generation thunk response: ', res)
+            // clear prompt input
+            setPrompt("")
 
         } catch (error) {
             console.log('user input | error:', error)
@@ -30,6 +41,7 @@ export default function GenerateInput(){
             console.log('Error usestate: ', err)
         }
     }
+
 
     return(
 
@@ -39,7 +51,12 @@ export default function GenerateInput(){
 
                 {/* Prompt */}
 
-                <input type="text" placeholder="Ask AI to generatecontent..." value={prompt} onChange={(e)=>setPrompt(e.target.value)} className=" w-full md:flex-1 px-4 py-3 rounded-lg border border-(--color-border)  bg-white outline-none focus:border-(--color-primary) "/>
+                <input type="text" placeholder="Ask AI to generatecontent..." value={prompt} onChange={(e)=>setPrompt(e.target.value)} className=" w-full md:flex-1 px-4 py-3 rounded-lg border border-(--color-border)  bg-white outline-none focus:border-(--color-primary) " 
+                // call api on 'enter'
+                onKeyDown={(e)=>{if(e.key==="Enter"){
+                            handleGenerate()
+                        }
+                    }} />
 
                 {/* Controls row */}
 
@@ -60,9 +77,7 @@ export default function GenerateInput(){
 
                     {/* Button */}
 
-                    <button
-                    onClick={handleGenerate}
-                    className=" flex-1 md:flex-none px-6 py-3 rounded-lg bg-(--color-primary)  text-white font-medium hover:bg-(--color-primary-light) transition " >
+                    <button onClick={handleGenerate} className=" flex-1 md:flex-none px-6 py-3 rounded-lg bg-(--color-primary)  text-white font-medium hover:bg-(--color-primary-light) transition " >
                         Generate
                     </button>
 

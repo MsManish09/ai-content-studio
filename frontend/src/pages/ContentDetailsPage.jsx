@@ -4,7 +4,7 @@ import { individualGenerationDetails } from "../api/generationAPI.js"
 import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm"
 import { useEffect, useState } from "react"
-import { MdCopyAll, MdDownload } from "react-icons/md";
+import { MdCopyAll } from "react-icons/md";
 import { IoArrowBack } from "react-icons/io5"
 import FullScreenLoading from '../components/FullScreenLoading.jsx'
 
@@ -46,11 +46,8 @@ export default function ContentDetailsPage(){
 
     // if not generatio detials
      if(!generation){
-        return(
-            <div className="p-10 bg-red-50 text-center m-[1rem] text-[1.5rem] rounded text-(--color-error) ">
-                Content not found
-            </div>
-        )
+        NotFound()
+        return 
     }
 
 
