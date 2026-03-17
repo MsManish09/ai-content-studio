@@ -40,7 +40,7 @@ export default async function generationService({userId,prompt, template}){
     const {result, tokensUsed} = await generateContent(formattedPrompt)
 
     // create generation document (in atlas)
-    await  generationModel.create({
+    const generation = await  generationModel.create({
         userId,
         prompt, 
         template,
@@ -56,7 +56,7 @@ export default async function generationService({userId,prompt, template}){
     await user.save()
 
     // return result
-    return result
+    return generation
 
 
 }
