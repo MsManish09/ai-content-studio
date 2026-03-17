@@ -4,10 +4,12 @@ import remarkGfm from "remark-gfm"
 
 import { useSelector } from "react-redux"
 import { useEffect, useRef } from "react"
+import InfoCard from "../InfoCard"
 
 export default function GenerationDisplay(){
 
     const { currentResponse , isGenerating , error} = useSelector( (state)=>state.generation )
+    console.log('generation display | current response: ', currentResponse)
 
     // autoscroll generation response
     const bottomRef = useRef(null)
@@ -61,8 +63,18 @@ export default function GenerationDisplay(){
 
                 <div className=" whitespace-pre-wrap text-(--color-text-on-primary) leading-relaxed ">
 
+                    {/* geneation meta data */}
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+
+                        <InfoCard title="Model" value={currentResponse.model}/>
+                        <InfoCard title="Template" value={currentResponse.template}/>
+                        <InfoCard title="Tokens" value={currentResponse.tokensUsed}/>
+                        <InfoCard title="Created" value={ new Date( currentResponse.createdAt ).toLocaleString() } />
+
+                    </div>
+
                     <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                        {currentResponse.data}
+                        {currentResponse.result}
                     </ReactMarkdown>
 
                     {/* auto scroll div */}

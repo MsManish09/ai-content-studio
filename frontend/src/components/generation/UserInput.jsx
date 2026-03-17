@@ -3,7 +3,7 @@ import { generateThunk } from "../../redux/generationSlice.js"
 import { useDispatch, useSelector } from "react-redux"
 import toast from "react-hot-toast"
 
-export default function GenerateInput(){
+export default function UserInput(){
 
     const [prompt , setPrompt] = useState("")
     const [template , setTemplate] = useState("blog")
@@ -37,8 +37,8 @@ export default function GenerateInput(){
 
         // console.log(prompt , template)
         try {
-                await dispatch( generateThunk({prompt, template}) ).unwrap()
-            
+                const res = await dispatch( generateThunk({prompt, template}) ).unwrap()
+                console.log('gneration res | user')
                 // clear prompt input
                 setPrompt("")
 

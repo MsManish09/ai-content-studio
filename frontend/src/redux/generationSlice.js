@@ -44,6 +44,7 @@ export const generateThunk = createAsyncThunk(
 
         try {
             const res = await generateContent(data)
+            console.log('Generation thunk | response: ', res)
             return res
         } catch (error) {
             return thunkAPI.rejectWithValue(
@@ -109,13 +110,15 @@ const generationSlice = createSlice({
             state.isLoadingHistory = false
             state.error = action.payload
         })
+        // generatioon thunk
         .addCase(generateThunk.pending, (state)=>{
             state.isGenerating = true
         })
         .addCase(generateThunk.fulfilled, (state, action)=>{
             state.isGenerating = false
-            state.currentResponse = action.payload
-            state.generations.data.unshift(action.payload)
+            console.log('generation thunk fulfilled | action.payload.data: ', action.payload.data)
+            state.currentResponse = action.payload.data
+            state.generations.data.unshift(action.payload.data)
             
         })
         .addCase(generateThunk.rejected, (state, action)=>{

@@ -7,6 +7,7 @@ import { useEffect, useState } from "react"
 import { MdCopyAll } from "react-icons/md";
 import { IoArrowBack } from "react-icons/io5"
 import FullScreenLoading from '../components/FullScreenLoading.jsx'
+import InfoCard from "../components/InfoCard.jsx"
 
 
 export default function ContentDetailsPage(){
@@ -97,19 +98,7 @@ export default function ContentDetailsPage(){
 
 }
 
-function InfoCard({title,value}){
-    return(
 
-        <div className="bg-(--color-primary-lighter) p-4 rounded-lg border">
-            <p className="text-xs text-gray-400">
-                {title}
-            </p>
-            <p className="font-semibold text-(--color-text-on-primary)">
-                {value}
-            </p>
-        </div>
-    )
-}
 
 function NotFound(){
 

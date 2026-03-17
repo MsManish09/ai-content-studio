@@ -30,6 +30,9 @@ export default function HistoryPills({index, data}){
            const res =  await dispatch( deleteIndividualHistoryThunk(data._id) ).unwrap()
         //    console.log( 'delete history pill response: ', res )
            toast.success('Deletion successful')
+
+        //    after deletion navigate to dashboard
+           navigate('/')
         } catch (error) {
             // console.log('error deleting history: ', error)
             setError(error)
