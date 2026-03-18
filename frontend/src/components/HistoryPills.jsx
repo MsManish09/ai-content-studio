@@ -13,7 +13,7 @@ export default function HistoryPills({index, data}){
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [err, setError] = useState(null)
-    const { isDeleting } = useSelector( state=>state.generation )
+    const generationState = useSelector( state => state.generation)
 
     // individual history pill click 
     function handleClick(){
@@ -27,12 +27,14 @@ export default function HistoryPills({index, data}){
         // console.log(data._id, ' will be deleted...')
 
         try {
-           const res =  await dispatch( deleteIndividualHistoryThunk(data._id) ).unwrap()
-        //    console.log( 'delete history pill response: ', res )
+           const res =  await dispatch( deleteIndividualHistoryThunk({id: data._id,
+                page: generationState.generations.page}) ).unwrap()
+            //    console.log( 'delete history pill response: ', res )
            toast.success('Deletion successful')
 
-        //    after deletion navigate to dashboard
+            //after deletion navigate to dashboard
            navigate('/')
+
         } catch (error) {
             // console.log('error deleting history: ', error)
             setError(error)
@@ -54,7 +56,7 @@ export default function HistoryPills({index, data}){
 
             </div>
 
-            <MdDeleteForever onClick={handleDelete} className={ ` h-[1.2rem] w-[1.2rem] hover:text-(--color-error) hover:scale-105 mr-2 ${isDeleting ? "opacity-40 pointer-events-none" : "hover:text-(--color-error)"} `}  />
+            <MdDeleteForever onClick={handleDelete} className={ ` h-[1.2rem] w-[1.2rem] hover:text-(--color-error) hover:scale-105 mr-2 ${generationState.isDeleting ? "opacity-40 pointer-events-none" : "hover:text-(--color-error)"} `}  />
 
         </div>
     )

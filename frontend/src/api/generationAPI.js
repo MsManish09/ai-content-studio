@@ -2,10 +2,10 @@
 import axiosInstance from "./axiosInstance.js";
 
 
-// funciton to call history api
-export async function getHistory(){
+// funciton to call history api -> page default value = 1
+export async function getHistory(page=1){
 
-    const res = await axiosInstance.get('/history')
+    const res = await axiosInstance.get(`/history?page=${page}&limit=20` )
     return res.data
 
 }

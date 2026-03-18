@@ -9,7 +9,6 @@ import InfoCard from "../InfoCard"
 export default function GenerationDisplay(){
 
     const { currentResponse , isGenerating , error} = useSelector( (state)=>state.generation )
-    console.log('generation display | current response: ', currentResponse)
 
     // autoscroll generation response
     const bottomRef = useRef(null)

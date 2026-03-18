@@ -12,6 +12,7 @@ import DashBoard from "./pages/Dashboard.jsx"
 import UserDetails from "./pages/auth/UserDetails.jsx"
 import {Toaster} from "react-hot-toast"
 import {  historyThunk } from "./redux/generationSlice.js"
+import HistoryPage from "./pages/HistoryPage.jsx"
 
 function App() {
 
@@ -72,6 +73,15 @@ function App() {
           element={
             <ProctectedRoutes>
               <UserDetails />
+            </ProctectedRoutes>
+          } 
+        />
+
+        <Route 
+          path="/history" 
+          element={
+            <ProctectedRoutes>
+              <HistoryPage />
             </ProctectedRoutes>
           } 
         />

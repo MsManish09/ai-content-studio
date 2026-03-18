@@ -98,8 +98,6 @@ export default function ContentDetailsPage(){
 
 }
 
-
-
 function NotFound(){
 
     return(

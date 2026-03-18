@@ -44,7 +44,6 @@ export const generateThunk = createAsyncThunk(
 
         try {
             const res = await generateContent(data)
-            console.log('Generation thunk | response: ', res)
             return res
         } catch (error) {
             return thunkAPI.rejectWithValue(
@@ -58,11 +57,25 @@ export const generateThunk = createAsyncThunk(
 
 export const deleteIndividualHistoryThunk = createAsyncThunk(
     'generation/delete',
-    async(id, thunkAPI)=>{
+    async({id, page}, thunkAPI)=>{
 
         try {
             
-            const res = await deleteIndividualHistory(id)
+            // call delete api
+            await deleteIndividualHistory(id)
+
+            const state = thunkAPI.getState()
+
+            // - 1 -> current delted geneation
+            const items = state.generation.generations.data.length
+
+            if( items === 1 && page > 1){
+                thunkAPI.dispatch(
+                    historyThunk(page-1)
+                )
+            }
+
+
             return { _id: id }   // return id to filter it out of the genration array
 
         } catch (error) {
@@ -113,10 +126,10 @@ const generationSlice = createSlice({
         // generatioon thunk
         .addCase(generateThunk.pending, (state)=>{
             state.isGenerating = true
+            state.error = null
         })
         .addCase(generateThunk.fulfilled, (state, action)=>{
             state.isGenerating = false
-            console.log('generation thunk fulfilled | action.payload.data: ', action.payload.data)
             state.currentResponse = action.payload.data
             state.generations.data.unshift(action.payload.data)
             
