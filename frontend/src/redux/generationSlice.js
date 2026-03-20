@@ -9,6 +9,7 @@ const initialState = {
         page: 1,
         totalPages: 1
     },
+    recentGenerations:[],
     isGenerating:false,
     isLoadingHistory:false,
     isDeleting:false,
@@ -105,7 +106,12 @@ const generationSlice = createSlice({
             state.isLoadingMore = false
             state.error = null
             state.currentResponse = null
-        } 
+        } ,
+
+        populateRecentGenerations: (state, action)=>{
+            console.log('populate recent generations reducer | action.payload ', action.payload)
+            state.recentGenerations = action.payload
+        }
     },
     extraReducers: (builder)=>{
         builder
@@ -114,10 +120,17 @@ const generationSlice = createSlice({
             state.isLoadingHistory = true
         })
         .addCase(historyThunk.fulfilled, (state, action)=>{
+            
             state.isLoadingHistory = false
-            state.generations.data = action.payload.data
+            state.generations.data = action.payload.data 
             state.generations.page = action.payload.page
             state.generations.totalPages = action.payload.totalPages
+
+            // populate recent generations
+             // populate sidebar cache
+            if(action.payload.page === 1){
+                state.recentGenerations = action.payload.data.slice(0,20)
+            }
         })
         .addCase(historyThunk.rejected, (state, action)=>{
             state.isLoadingHistory = false
@@ -131,7 +144,11 @@ const generationSlice = createSlice({
         .addCase(generateThunk.fulfilled, (state, action)=>{
             state.isGenerating = false
             state.currentResponse = action.payload.data
-            state.generations.data.unshift(action.payload.data)
+            state.recentGenerations.unshift(action.payload.data)
+            // when recentGenertion > 20 -> remove last item
+            if(state.recentGenerations.length > 20){
+                state.recentGenerations.pop()
+            }
             
         })
         .addCase(generateThunk.rejected, (state, action)=>{
@@ -144,7 +161,7 @@ const generationSlice = createSlice({
         })
         .addCase(deleteIndividualHistoryThunk.fulfilled, (state, action)=>{
             state.isDeleting = false
-            state.generations.data = state.generations.data.filter(
+            state.recentGenerations = state.recentGenerations.filter(
                 item => item._id !== action.payload._id
             )
         })
@@ -156,5 +173,5 @@ const generationSlice = createSlice({
     }
 })
 
-export const { clearGenerationState } = generationSlice.actions
+export const { clearGenerationState, populateRecentGenerations } = generationSlice.actions
 export default generationSlice.reducer

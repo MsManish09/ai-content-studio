@@ -3,14 +3,25 @@ import logo from '../../src/utils/fevicon.png'
 import { BsChatLeftText } from "react-icons/bs";
 import HistoryPills from './HistoryPills';
 import { HiX } from "react-icons/hi";
-import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
 
 export default function Sidebar({isOpen, setIsOpen}){
 
-    const {generations, isLoadingHistory} = useSelector((state)=> state.generation)
-    const generatedContent = generations?.data || []
-    // console.log('Generated content: ', generatedContent)
+    const {recentGenerations, isLoadingHistory, generations} = useSelector((state)=> state.generation)
+    const navigate = useNavigate()
+
+
+    // navigate to historypage 1
+    function openHistoryPage(){
+
+        // 0.3 sec delay
+        setTimeout(() => {
+            navigate('/history?page=1')
+        }, 300);
+
+    }
 
     return(
 
@@ -40,6 +51,7 @@ export default function Sidebar({isOpen, setIsOpen}){
                     <BsChatLeftText /> 
                 </div>
                 
+                {/* main */}
                 {/* generated content pills */}
                 <div className='  max-w-full  max-h-[80vh] overflow-y-auto bg-(--color-primary-lighter) flex flex-col custom-scrollbar p-2 text-gray-200 text-[1rem] ' >
 
@@ -53,13 +65,13 @@ export default function Sidebar({isOpen, setIsOpen}){
                     }
 
                     {/* generated pills */}
-                    {   generatedContent.length === 0 ? (
+                    {   recentGenerations.length === 0 ? (
                             <p className="text-center text-gray-400 py-4">
                                 No generations yet. Start generating ✨
                             </p>
 
                         ) : (                                
-                                generatedContent.map((item, index)=>{
+                                recentGenerations.map((item, index)=>{
                                     return <HistoryPills 
                                     key={item._id}
                                     index={index + 1}
@@ -68,6 +80,11 @@ export default function Sidebar({isOpen, setIsOpen}){
                             )
                     }
 
+                </div>
+
+                {/* footer -> history page */}
+                <div className=' m-auto rounded bg-(--color-primary-light) text-(--color-accent) w-[90%] p-2 flex justify-center items-center font-semibold border border-solid border-(--color-accent) hover:bg-(--color-primary) hover:text-(--color-accent-hover) hover:cursor-pointer hover:scale-105 ' onClick={()=> openHistoryPage() } >
+                    All Generations
                 </div>
 
             </div>

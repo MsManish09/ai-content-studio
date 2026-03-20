@@ -66,3 +66,11 @@ body{
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: var(--color-accent);
 }
+
+/* disable button */
+.disabled-true{
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.6;
+
+}

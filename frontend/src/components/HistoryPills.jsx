@@ -17,7 +17,7 @@ export default function HistoryPills({index, data}){
 
     // individual history pill click 
     function handleClick(){
-        console.log('History pill | genertion id: ', data._id)
+        // console.log('History pill | genertion id: ', data._id)
         navigate(`/generation/${data._id}`)
 
     }

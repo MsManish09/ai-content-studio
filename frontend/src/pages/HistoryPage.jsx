@@ -2,27 +2,60 @@ import { useDispatch, useSelector } from 'react-redux'
 import Navbar from '../components/NavBar'
 import { MdDelete } from "react-icons/md";
 import toast from 'react-hot-toast';
-import { useState } from 'react';
-import { deleteIndividualHistoryThunk } from '../redux/generationSlice';
+import { useEffect, useState } from 'react';
+import { deleteIndividualHistoryThunk, historyThunk } from '../redux/generationSlice';
+import Pagination from '../components/Pagination';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 
 export default function HistoryPage(){
 
     const generationState = useSelector(state => state.generation)
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    // extact page number from the url
+    const [searchParams] = useSearchParams()
+    let page = Number(searchParams.get("page")) || 1
 
-    // re-load generation on history page navigation
+    // re-load generationState on history page navigation -> latest 20 generations
     useEffect(()=>{
-        dispatch(historyThunk(1))
-    },[])
+
+        if(page < 1){
+            navigate('/history?page=1')
+            return
+        }
+
+        // if page > totalpages
+        if( page > generationState.generations.totalPages ){
+
+            navigate(`/history?page=${generationState.generations.totalPages}`)
+            return
+            
+        }
+
+        dispatch(historyThunk(page))
+    },[page])
+
+    // smooth page scroll reset
+    useEffect(()=>{
+        window.scrollTo({ top:0, behavior:'smooth' })
+    },[generationState.generations.page])
+
+    // pagination -> page change
+    function handlePageChange(page){
+        navigate(`/history?page=${page}`)
+        // dispatch(historyThunk(page))
+    }
+
 
     return(
-        <div className=' bg-(--color-primary) w-full h-screen ' >
+        <div className=' bg-(--color-primary) w-full h-screen relative ' >
             
             {/* header -> nav bar */}
             <Navbar />
 
             {/* main  */}
-            <div className=' p-4 my-[1rem]  text-(--color-text-on-primary) ' >
+            <div className=' p-4 my-[1rem]  text-(--color-text-on-primary) h-[80vh] overflow-y-auto custom-scrollbar ' >
 
                 {/* heading */}
                 <h2 className='px-2 font-bold text-[1.75rem] text-center sm:text-start ' > Content Generation History</h2>
@@ -39,7 +72,8 @@ export default function HistoryPage(){
 
                     {/* render history cards */}
                     {
-                        generationState.generations.data.map((item, index)=> <HistoryCards item={item} index={index + 1} page={generationState.generations.page} />)
+                        generationState.generations?.data?.map((item, index)=> 
+                        <HistoryCards  key={item._id} item={item} index={index + 1} page={generationState.generations.page} />)
                     }
 
                 </div>
@@ -47,7 +81,9 @@ export default function HistoryPage(){
             </div>
 
             {/* footer -> pagination */}
-
+            <div className=' px-6 absolute bottom-[1rem] bg-(--color-primary) w-full ' >
+                <Pagination page={generationState.generations.page} totalPages={generationState.generations.totalPages} onPageChange={handlePageChange} />
+            </div>
 
         </div>
     )
@@ -60,6 +96,7 @@ function HistoryCards({item, index, page}){
     const formatedDate = formatSmartDate( date )
     const [err, setErr ] = useState(null)
     const dispatch = useDispatch()
+
 
     // functionality to delete generation
     async function handleDeletion(){
@@ -156,10 +193,10 @@ function formatSmartDate(dateString){
     }
 
     // if generated more than 30 days ago -> actual date
-    return date.toLocaleDateString('en-US'), {
+    return date.toLocaleDateString('en-US', {
         month: 'short',
         day: 'numeric',
         year: 'numeric'
-    }
+    })
 
 }
