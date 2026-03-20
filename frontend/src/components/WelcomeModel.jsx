@@ -2,39 +2,63 @@ import { IoMdClose } from "react-icons/io";
 
 export default function WelcomeModal({user, onClose}){
 
-    return(
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
 
-    <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
+      <div className="w-full max-w-md mx-4 bg-(--color-bg-secondary) border border-(--color-border)] rounded-2xl shadow-xl overflow-hidden">
 
-      <div className=" bg-(--color-primary) text-(--color-accent) p-6 rounded-2xl shadow-[0_0_25px_#6B7A90] w-[400px] relative text-center ">
+        {/* Header */}
+        <div className="flex items-center justify-between px-5 py-3 border-b border-(--color-border)">
 
-        <IoMdClose
-          onClick={onClose}
-          className="absolute right-3 top-3 cursor-pointer text-xl"
-        />
+          <div className="text-xs font-medium tracking-[0.2em] uppercase text-(--color-text-muted) ">
+            Welcome
+          </div>
 
-        <h2 className="text-2xl font-bold mb-3">
-          🎉 Welcome {user?.name}!
-        </h2>
+          <button
+            type="button"
+            onClick={onClose}
+            className="p-1 rounded-full text-(--color-text-muted) hover:text-(--color-primary-light) hover:bg-(--color-bg-tertiary) hover:scale-105 transition"
+          >
+            <IoMdClose className="h-4 w-4" />
+          </button>
+        </div>
 
-        <p className="text-(--color-accent-soft)">
-          Your account has been created successfully.
-        </p>
+        {/* Body */}
+        <div className="px-6 py-6 space-y-4">
+          <div>
+            <h2 className="text-lg font-semibold tracking-tight">
+              Nice to meet you, {user?.name}.
+            </h2>
+            <p className="mt-1 text-sm text-(--color-text-muted) ">
+              Your account has been created successfully. You&apos;re all set to
+              start generating high-quality AI content.
+            </p>
+          </div>
 
-        <p className="mt-3">
-          Start generating amazing AI content 🚀
-        </p>
+          <div className="rounded-xl bg-(--color-bg-tertiary) border border-(--color-border) px-4 py-3 text-xs text-(--color-text-secondary)">
+            <p className="font-medium mb-1">
+              What you can do from here:
+            </p>
+            <ul className="list-disc list-inside space-y-1">
+              <li>Explore templates tailored to your content needs.</li>
+              <li>Save and revisit your favorite generations.</li>
+              <li>Iterate quickly with history and refinements.</li>
+            </ul>
+          </div>
+        </div>
 
-        <button
-          onClick={onClose}
-          className=" mt-5 bg-(--color-accent) text-(--color-primary-dark) py-2 px-4 rounded-lg font-bold hover:scale-95 transition ">
-          Go to Dashboard
-        </button>
-
+        {/* Footer */}
+        <div className="px-6 pb-5 pt-1 flex justify-end">
+          <button
+            type="button"
+            onClick={onClose}
+            className="inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-medium bg-(--color-primary) text-(--color-text-on-primary) hover:bg-(--color-accent-hover) hover:scale-105 transition" >
+              Start creating
+          </button>
+        </div>
       </div>
-
     </div>
-
   )
+
 
 }

@@ -8,44 +8,46 @@
 
 :root {
   /* Base backgrounds */
-  --color-bg-primary: #FFFFFF;   /* main page background */
---color-bg-secondary: #F3F6FB; /* very light navy tint */
---color-bg-tertiary: #E8EEF6;  /* slightly stronger tint */
---color-bg-quaternary: #DCE6F2; /* cards / subtle sections */
+  --color-bg-primary: #0b0b0f;       /* main app background (near-black) */
+  --color-bg-secondary: #111118;     /* panels / workspace */
+  --color-bg-tertiary: #161620;      /* elevated cards */
+  --color-bg-quaternary: #1c1c28;    /* subtle sections / modals */
 
-  /* Primary brand colors */
-  --color-primary: #0B1F3B;        /* Navy */
-  --color-primary-light: #1E3A5F;
-  --color-primary-dark: #071426;
-  --color-primary-lighter: #4A5563;
+  /* Primary brand (monochrome) */
+  --color-primary: #f5f5f7;          /* primary text / key accents */
+  --color-primary-light: #ffffff;    /* bright accents, borders on dark bg */
+  --color-primary-dark: #b0b0b8;     /* muted text / icons */
+  --color-primary-lighter: #8e8e98;  /* secondary icons, meta text */
 
-  --color-accent: #FFD54F;         /* Yellow */
-  --color-accent-hover: #FFC107;
-  --color-accent-soft: #FFF4CC;
+  /* Accent (very subtle, still monochrome-ish) */
+  --color-accent: #e5e5ff;           /* highlight / focus ring */
+  --color-accent-hover: #ffffff;     /* hover for buttons/links */
+  --color-accent-soft: #272738;      /* soft background highlight */
 
   /* Text */
-  --color-text-primary: #0B1F3B;
-  --color-text-secondary: #3A4A5E;
-  --color-text-muted: #6B7A90;
-  --color-text-on-primary: #FFFFFF;
+  --color-text-primary: #f5f5f7;
+  --color-text-secondary: #c3c3cd;
+  --color-text-muted: #8e8e98;
+  --color-text-on-primary: #050509;
 
   /* Borders */
-  --color-border: #D6DFEA;
-  --color-border-strong: #AAB8C8;
+  --color-border: #262634;
+  --color-border-strong: #3a3a4c;
 
-  /* States */
-  --color-success: #1E8E5A;
-  --color-warning: #FFB300;
-  --color-error: #D32F2F;
+  /* States (kept but desaturated slightly) */
+  --color-success: #35a27c;
+  --color-warning: #e0a63a;
+  --color-error: #d65b5b;
 
   /* Utility */
-  --color-white: #FFFFFF;
-  --color-navy: #0B1F3B;
-  --color-yellow: #FFD54F;
+  --color-white: #ffffff;
+  --color-navy: #0b0b0f;  /* alias to new dark bg if referenced */
+  --color-yellow: #e0a63a;
 }
 
-body{
+body {
   background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
 }
 
 /* Custom Scrollbar */
@@ -59,12 +61,12 @@ body{
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: var(--color-primary-light);
-  border-radius: 20px;
+  background: #3a3a4c;
+  border-radius: 999px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: var(--color-accent);
+  background: #4a4a5c;
 }
 
 /* disable button */

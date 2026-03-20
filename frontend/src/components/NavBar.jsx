@@ -8,6 +8,7 @@ import { logoutThunk } from '../redux/authSlice';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import {clearGenerationState} from '/src/redux/generationSlice.js'
+import { RxHamburgerMenu } from 'react-icons/rx';
 
 export default function NavBar({setIsSidebarOpen}){
 
@@ -31,57 +32,76 @@ export default function NavBar({setIsSidebarOpen}){
     }
 
     // nvigate to home page on logo click
-    function handleClick(){
+    function handleLogoClick(){
         navigate('/')
     }
 
     return(
 
-        <nav className='  flex border-b border-(--color-text-muted) justify-evenly items-center px-6 h-[70px] bg-(--color-primary) '>
+        <header className="sticky top-0 z-40 w-full border-b border-(--color-border) bg-(--color-bg-primary)/90 backdrop-blur-md">
 
-            {/* LEFT SECTION */}
-            <div className='flex items-center gap-4'>
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
 
-                 {/* Hamburger (mobile only) */}
+                {/* Left: menu + logo */}
+                <div className="flex items-center gap-3">
 
-                <MdOutlineChat
-                    onClick={()=>setIsSidebarOpen(true)}
-                    className="w-[28px] h-[28px] text-(--color-text-muted) cursor-pointer md:hidden"
-                />
+                {/* Hamburger (mobile) */}
+                <button
+                    type="button"
+                    onClick={() => setIsSidebarOpen(true)}
+                    className="inline-flex md:hidden items-center justify-center rounded-md p-1.5 text-(--color-text-muted) hover:text-(--color-primary-light) hover:bg-(--color-bg-secondary) hover:scale-105 transition"
+                    aria-label="Open navigation">
+                    <RxHamburgerMenu className="h-5 w-5" />
+                </button>
 
-                {/* Logo */}
+                {/* Logo + name */}
+                <button
+                    type="button"
+                    onClick={handleLogoClick}
+                    className="flex items-center gap-2 group hover:scale-105 hover:cursor-pointer " >
 
-                <div onClick={handleClick}
-                className=' w-[140px] hover:scale-105 cursor-pointer transition '>
+                    <img src={logo} alt="AI Content Studio"
+                     className="h-7 w-auto opacity-90 group-hover:opacity-100 transition"/>
 
-                    <img src={logo} alt="logo"/>
+                    <span className="hidden sm:inline text-sm font-medium tracking-tight text-(--color-text-primary) ">
+                    AI Content Studio
+                    </span>
 
+                </button>
                 </div>
 
-            </div>
-            
+                {/* Center: subtle indicator */}
+                <div className="hidden md:flex items-center gap-2 text-xs text-(--color-text-muted)">
 
-            {/* RIGHT SECTION */}
+                    <span className="h-1.5 w-1.5 rounded-full bg-(--color-success) animate-pulse" />
+                    <span>Workspace ready</span>
+                </div>
 
-            <div className='flex gap-6 items-center'>
-
-                {/* profile */}
-
-                <Link to='/profile'>
-
-                    <IoPersonCircleSharp
-                    className=' w-[32px] h-[32px] text-(--color-text-muted) hover:text-(--color-accent-hover) hover:scale-110 transition '
-                    />
-
+                {/* Right: chat, profile, logout */}
+                <div className="flex items-center gap-2 sm:gap-3">
+                <Link
+                    to="/history"
+                    className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-(--color-border)] bg-(--color-bg-secondary) px-3 py-1.5 text-xs text-(--color-text-secondary) hover:border-(--color-accent) hover:bg-(--color-accent-soft) hover:scale-105 transition"
+                >
+                    <MdOutlineChat className="h-3.5 w-3.5" />
+                    <span>History</span>
                 </Link>
 
-                {/* logout */}
+                <Link
+                    to="/profile"
+                    className="inline-flex items-center gap-1.5 rounded-full border border(--color-border) bg-(--color-bg-secondary) px-2.5 py-1 text-xs text-(--color-text-secondary) hover:border-(--color-accent) hover:bg-(--color-accent-soft) hover:scale-105 transition">
+                    <IoPersonCircleSharp className="h-4 w-4" />
+                    <span className="hidden sm:inline">Profile</span>
+                </Link>
 
-                <FaSignOutAlt onClick={handleLogout} className=' w-[28px] h-[28px] text-(--color-text-muted) hover:text-(--color-error) hover:scale-110 cursor-pointer transition ' />
-
+                <button type="button" onClick={handleLogout}
+                    className="inline-flex items-center justify-center rounded-full bg-(--color-bg-tertiary) text-(--color-text-secondary) hover:text-(--color-primary-light) hover:bg-(--color-bg-quaternary) hover:scale-105 hover:cursor-pointer p-2 text-xs transition">
+                    <FaSignOutAlt className="h-3.5 w-3.5" />
+                </button>
+                </div>
             </div>
+        </header>
 
-        </nav>
 
     )
 

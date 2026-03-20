@@ -30,20 +30,18 @@ export default function Register(){
   const dispatch = useDispatch()
 
   // reload when auht state changes
-  useEffect(()=>{
-    console.log('Auth state :', authState)
-  }, [authState])
-
-
+  useEffect(() => {
+    console.log("Auth state :", authState);
+  }, [authState]);
 
   // on click -> navigate to login page
   function handleloginNav(){
     navigate('/login')
   }
 
-
+ //registration fn 
   async function onSubmit(data){
-    console.log('registration form submitted | data', data)
+    // console.log('registration form submitted | data', data)
 
     if(data.password !== data.confirmPassword){
       setError('Passwords do not match')
@@ -55,18 +53,13 @@ export default function Register(){
     // call registration api layer
     try {
 
-      console.log('data: ', data)
-      
       await dispatch(registerThunk(data)).unwrap()
-
       toast.success("Registration successful  🎉")
       setNewUser(data)
-      console.log('Nuew user: ', newUser)
       setshowWelcome(true)
 
     } catch (error) {
       const message = error.response?.data?.message || 'Registration failed'
-      console.log('Error: ',error)
       setError(message )
       toast.error(message)
     }
@@ -74,91 +67,179 @@ export default function Register(){
   }
 
   return(
-    <div className=' flex flex-col items-center bg-(--color-primary) w-[100vw] h-[100vh] ' >
-      {/* logo */}
-      <div className=' w-[200px] h-[15vh] ' >
-        <img src={logo} alt="site logo" />
-      </div>
+    <>
+      <div className="min-h-screen flex items-center justify-center bg-(--color-bg-primary) text-(--color-text-primary) px-4">
+          <div className="w-full max-w-2xl">
+            <div className="bg-(--color-bg-secondary) border border-(--color-border) rounded-2xl shadow-sm px-7 py-8 sm:px-10 sm:py-10">
+              {/* Header */}
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-2">
+                  <img
+                    src={logo}
+                    alt="AI Content Studio"
+                    className="h-7 w-auto opacity-90"
+                  />
+                  <span className="hidden sm:inline text-xs uppercase tracking-[0.2em] text-(--color-text-muted)">
+                    AI Content Studio
+                  </span>
+                </div>
 
-      {/* form section */}
-      <div className=" flex flex-col gap-2 p-4 rounded-2xl items-center border-2 border-solid border-(--color-accent) text-(--color-accent) w-[350px] shadow-[0_0_25px_#6B7A90] " >
-        {/* header */}
-        <div className=' text-center' >
-          <h2 className=' text-[1.75rem] font-extrabold mb-3  ' >Create Account</h2>
-          <p>Start Creating AI Content Today!</p>
-        </div>
+                <button
+                  type="button"
+                  onClick={handleloginNav}
+                  className="text-xs text-(--color-text-muted) hover:text-(--color-primary-light) underline-offset-2 hover:underline transition hover:cursor-pointer" >
+                  Already have an account?
+                </button>
 
-        {/* main -> form */}
-        <form onSubmit={handleSubmit(onSubmit)} className=' w-[90%] ' >
-
-            {/* name */}
-          <div className=' flex flex-col gap-1  mb-2' >
-            <label htmlFor="userName" className=' text-[1.25rem] font-bold ' >Name</label>
-            <input {...register("name")} type="text" id="userName" required placeholder='Enter Your name' className=' p-2  bg-(--color-accent-soft) rounded text-(--color-primary-dark) border-2 border-solid border-(--color-text-secondary)  focus:border-(--color-accent-hover) outline focus:scale-105 ' />
-          </div>
-
-          {/* email */}
-          <div className=' flex flex-col gap-1 mb-2 ' >
-            <label htmlFor="userEmail" className=' text-[1.25rem] font-bold ' >Email</label>
-            <input {...register("email")} type="email" id="userEmail" required placeholder='Enter your email' className=' p-2  bg-(--color-accent-soft) rounded text-(--color-primary-dark) border-2 border-solid border-(--color-text-secondary)  focus:border-(--color-accent-hover) outline focus:scale-105 ' />
-          </div>
-
-          {/* password */}
-          <div className=' flex flex-col gap-1 mb-2 ' >
-            <label htmlFor="userPass" className=' text-[1.25rem] font-bold ' >Password</label>
-            <div className=' relative ' >
-              <input type={showPassword ? "text" : "password" } id="userPass" required placeholder='Enter your password'
-              
-              className=' w-full p-2  bg-(--color-accent-soft) rounded text-(--color-primary-dark) border-2 border-solid border-(--color-text-secondary)  focus:border-(--color-accent-hover) outline focus:scale-105 outline-none ' {...register("password")}  />
-
-              <span onClick={()=>setShowPassword(!showPassword)}  className=' absolute right-3 top-4 text-(--color-text-primary) ' >{showPassword ? <IoEyeOffOutline /> : <IoEyeOutline />}</span>
-
-            </div>
-          </div>
-
-          {/* confirm password */}
-          <div className=' flex flex-col gap-1 mb-2 ' >
-            <label htmlFor="confirmPassword" className=' text-[1.25rem] font-bold ' >Confirm Password</label>
-            <div className=' relative ' >
-              <input {...register("confirmPassword")} type={showConfirmPassword ? "text" : "password"} id="confirmPassword" required placeholder='Confirm password'
-              
-              className=' w-full p-2  bg-(--color-accent-soft) rounded text-(--color-primary-dark) border-2 border-solid border-(--color-text-secondary)  focus:border-(--color-accent-hover) outline focus:scale-105 outline-none ' />
-
-              <span onClick={()=>setConfirmPassword(!showConfirmPassword)}  className=' absolute right-3 top-4 text-(--color-text-primary) ' >{showConfirmPassword ? <IoEyeOffOutline /> : <IoEyeOutline />}</span>
-
-            </div>
-          </div>
-
-          {error && (
-              <div className="text-red-500 text-sm text-center">
-                {error}
               </div>
-          )}
 
-          {/* sing up btn */}
-          <button type='submit'  className=" w-full bg-(--color-accent) hover:bg-(--color-accent-hover) p-2 mt-2 mb-4 text-(--color-primary-dark) font-bold rounded-lg transition duration-200 hover:scale-95 text-[1.25rem] ">SignUp </button>
+              {/* Title + subtitle */}
+              <div className="mb-7">
+                <h1 className="text-xl sm:text-2xl font-semibold tracking-tight">
+                  Start creating AI content today
+                </h1>
+                <p className="text-sm text-(--color-text-muted) mt-2">
+                  Create an account to access your personalized workspace, history
+                  and saved generations.
+                </p>
+              </div>
 
-        </form>     
+              {/* Form */}
+              <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5" >
 
-        {/* footer */}
-        <div className=' border-t-2 border-solid border-(--color-accent) text-(--color-accent-soft) w-[90%] text-center p-3 ' >
-          <h2 className=' text-[1.1rem] ' >Already have a account? <span className=' text-(--color-accent) hover:text-(--color-text-secondary) hover:bg-(--color-accent-hover) pl-2 pr-2 pt-1 pb-1 hover:cursor-pointer hover:font-bold' onClick={()=>{handleloginNav()}}  >Login</span> </h2>
-        </div>
-      </div>
+                {/* Name */}
+                <div className="space-y-1.5">
+                  <label className="block text-sm font-medium text-(--color-text-secondary)">
+                    Full name
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Your name"
+                    className="w-full rounded-lg bg-(--color-bg-tertiary) border border(--color-border) px-3.5 py-2.5 text-sm outline-none focus:border-(--color-accent) focus:ring-1 focus:ring-(--color-accent) placeholder:text-(--color-text-muted) transition"
+                    {...register("name", { required: true })}
+                  />
+                </div>
 
-      {/* welcome modal */}
+                {/* Email */}
+                <div className="space-y-1.5">
+                  <label className="block text-sm font-medium text-(--color-text-secondary) ">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    placeholder="you@example.com"
+                    autoComplete="email"
+                    className="w-full rounded-lg bg-(--color-bg-tertiary) border border-(--color-border) px-3.5 py-2.5 text-sm outline-none focus:border-(--color-accent) focus:ring-1 focus:ring-(--color-accent) placeholder:text-(--color-text-muted) transition"
+                    {...register("email", { required: true })}
+                  />
+                </div>
+
+                {/* Password */}
+                <div className="space-y-1.5">
+                  <label className="block text-sm font-medium text-(--color-text-secondary)">
+                    Password
+                  </label>
+                  <div className="relative">
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      placeholder="Create a password"
+                      autoComplete="new-password"
+                      className="w-full rounded-lg bg-(--color-bg-tertiary) border border-(--color-border) px-3.5 py-2.5 pr-9 text-sm outline-none focus:border-(--color-accent) focus:ring-1 focus:ring(--color-accent) placeholder:text-(--color-text-muted) transition"
+                      {...register("password", { required: true, minLength: 6 })}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword((prev) => !prev)}
+                      className="absolute inset-y-0 right-2.5 flex items-center text-(--color-text-muted) hover:text-(--color-primary-light) transition"
+                    >
+                      {showPassword ? (
+                        <IoEyeOffOutline className="h-4 w-4" />
+                      ) : (
+                        <IoEyeOutline className="h-4 w-4" />
+                      )}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Confirm password */}
+                <div className="space-y-1.5">
+                  <label className="block text-sm font-medium text-(--color-text-secondary) ">
+                    Confirm password
+                  </label>
+                  <div className="relative">
+                    <input
+                      type={showConfirmPassword ? "text" : "password"}
+                      placeholder="Repeat password"
+                      autoComplete="new-password"
+                      className="w-full rounded-lg bg-(--color-bg-tertiary) border border-(--color-border) px-3.5 py-2.5 pr-9 text-sm outline-none focus:border-(--color-accent) focus:ring-1 focus:ring-(--color-accent) placeholder:text-(--color-text-muted) transition"
+                      {...register("confirmPassword", {
+                        required: true,
+                        minLength: 6,
+                      })}
+                    />
+
+                    <button
+                      type="button"
+                      onClick={() => setConfirmPassword((prev) => !prev)}
+                      className="absolute inset-y-0 right-2.5 flex items-center text-(--color-text-muted) hover:text-(--color-primary-light) transition"
+                    >
+                      {showConfirmPassword ? (
+                        <IoEyeOffOutline className="h-4 w-4" />
+                      ) : (
+                        <IoEyeOutline className="h-4 w-4" />
+                      )}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Error message */}
+                {error && (
+                  <div className="sm:col-span-2 text-xs text-(--color-error) bg-(--color-bg-tertiary) border border-[(--color-error)/40] rounded-md px-3 py-2">
+                    {error}
+                  </div>
+                )}
+
+                {/* Submit */}
+                <div className="sm:col-span-2 mt-2">
+                  <button
+                    type="submit"
+                    disabled={authState.loading}
+                    className={`w-full inline-flex items-center justify-center rounded-lg px-3.5 py-2.5 text-sm font-medium transition disabled:opacity-60 disabled:cursor-not-allowed hover:cursor-pointer
+                      bg-(--color-primary) text-(--color-text-on-primary)
+                      hover:bg-(--color-accent-hover) hover:text-(--color-text-on-primary) `}
+                  >
+                    {authState.loading ? "Creating your account..." : "Create account"}
+                  </button>
+                </div>
+              </form>
+
+              {/* Footer */}
+              <div className="mt-6 text-center text-sm text-(--color-text-muted)">
+                <span>Already have an account? </span>
+                <button className="text-(--color-primary) hover:text-(--color-accent-hover) underline-offset-2 hover:underline transition hover:cursor-pointer  " >
+                  Sign in
+                </button>
+              </div>
+            </div>
+
+            <p className="mt-4 text-center text-[10px] text-(--color-text-muted)">
+              By creating an account, you agree to our Terms and acknowledge our
+              Privacy Policy.
+            </p>
+          </div>
+      </div> 
+
+      {/*  welcome modal */}
       {showWelcome && (
         <WelcomeModal
-          user={newUser}
-          onClose={async ()=>{
-            setshowWelcome(false)
-
-            // if registration successful -> autologin
-            await dispatch(getMeThunk()).unwrap()
-          }}
-        />
-      )}
-    </div>
+            isOpen={showWelcome}
+            onClose={() => setshowWelcome(false)}
+            user={newUser} />
+      )} 
+    </>
   )
 
 }
+
