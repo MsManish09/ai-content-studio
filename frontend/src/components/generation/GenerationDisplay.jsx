@@ -60,7 +60,7 @@ export default function GenerationDisplay(){
 
             {currentResponse && !isGenerating && (
 
-                <div className=" whitespace-pre-wrap text-(--color-text-on-primary) leading-relaxed ">
+                <div className=" h-full w-full bg-(--color-bg-secondary) text-(--color-text-primary) ">
 
                     {/* geneation meta data */}
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
@@ -72,9 +72,11 @@ export default function GenerationDisplay(){
 
                     </div>
 
-                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                        {currentResponse.result}
-                    </ReactMarkdown>
+                    <div className="prose prose-invert max-w-none">
+                        <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                            {currentResponse.result}
+                        </ReactMarkdown>
+                    </div>
 
                     {/* auto scroll div */}
                     <div ref={bottomRef} ></div>
