@@ -25,70 +25,82 @@ export default function Sidebar({isOpen, setIsOpen}){
 
     return(
 
-        <aside className={` fixed md:static w-[250px] min-h-screen bg-(--color-primary-lighter) flex flex-col items-center z-50 transform transition-transform duration-500  ${isOpen ? "translate-x-0" : "-translate-x-full"}  md:translate-x-0 `} >
+        <aside className={` fixed md:static top-0 left-0 z-50 h-screen w-[280px] bg-(--color-bg-secondary) border-r border-(--color-border) text-(--color-text-primary) transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}>
+            <div className="flex h-full flex-col">
+                    
+                    {/* top section */}
+                    <div className="flex items-center justify-between px-4 py-4 border-b border-(--color-border) ">
+                        <div className="flex items-center gap-3">
 
-        {/* logo */}
-            <div className=' w-full flex border-b border-(--color-text-muted) justify-evenly items-center px-6 h-[70px] ' > 
-                
-                <img src={logo} alt="site logo"  className=' w-[70px] h-[70px]' />
+                            <div className="h-10 w-10 rounded-xl bg-(--color-bg-tertiary) border border-(--color-border) flex items-center justify-center">
+                                <img src={logo} alt="logo" className="h-5 w-5 object-contain opacity-90" />
+                            </div>
 
-                {/* Close button mobile */}
-                <HiX
-                    onClick={()=>setIsOpen(false)}
-                    className="w-[28px] h-[28px] cursor-pointer md:hidden"
-                />
+                            <div className="flex flex-col">
+                                <p className="text-sm font-semibold tracking-tight text-(--color-text-primary)">
+                                    AI Content Studio
+                                </p>
 
+                                <p className="text-[11px] text-(--color-text-muted)">
+                                    Content workspace
+                                </p>
+                            </div>
+                        </div>
+
+                    <button
+                        onClick={() => setIsOpen(false)}
+                        className="md:hidden p-2 rounded-lg text-(--color-text-muted) hover:text-(--color-text-primary) hover:bg-(--color-bg-tertiary) transition"
+                    >
+                        <HiX className="w-5 h-5" />
+                    </button>
+                    </div>
+
+                    {/* history header */}
+                    <div className="px-4 pt-5 pb-3">
+                        <button
+                            onClick={openHistoryPage}
+                            className="w-full flex items-center gap-3 px-3 py-3 rounded-xl bg-(--color-bg-tertiary) border border-(--color-border) text-(--color-text-secondary) hover:text-(--color-text-primary) hover:border-(--color-border-strong) transition"
+                        >
+                            <BsChatLeftText className="w-4 h-4" />
+                            <span className="text-sm font-medium">History</span>
+                        </button>
+                    </div>
+
+                    {/* recent history list */}
+                    <div className="flex-1 overflow-hidden px-3 pb-4">
+                        <div className="h-full rounded-2xl bg-(--color-bg-tertiary) border border-(--color-border) overflow-hidden">
+                            <div className="px-4 py-3 border-b border-(--color-border)">
+                                <p className="text-xs uppercase tracking-[0.18em] text-(--color-text-muted)">
+                                    Recent generations
+                                </p>
+                            </div>
+
+                            <div className="h-full overflow-y-auto custom-scrollbar px-2 py-2">
+                            {isLoadingHistory ? (
+                                <div className="space-y-2 px-1">
+                                {[...Array(6)].map((_, index) => (
+                                    <div
+                                    key={index}
+                                    className="h-11 rounded-xl bg-(--color-bg-quaternary) animate-pulse"
+                                    />
+                                ))}
+                                </div>
+
+                            ) : recentGenerations?.length > 0 ? (
+                                recentGenerations.map((data, index) => (
+                                <HistoryPills key={data._id} data={data} index={index} />
+                                ))
+                            ) : (
+                                <div className="flex items-center justify-center h-40 px-4 text-center">
+                                <p className="text-sm text-(--color-text-muted)">
+                                    No recent generations yet.
+                                </p>
+                                </div>
+                            )}
+                            </div>
+                        </div>
+                    </div>
             </div>
-
-
-        {/* main -> history */}
-
-            <div className=' w-full h-full ' >
-
-                {/* headline */}
-                <div className=' w-full flex justify-start items-center  gap-2 font-bold text-[1.25rem] text-(--color-primary-dark) p-3 ' >
-                    <h2 > Your Chats </h2>
-                    <BsChatLeftText /> 
-                </div>
-                
-                {/* main */}
-                {/* generated content pills */}
-                <div className='  max-w-full  max-h-[80vh] overflow-y-auto bg-(--color-primary-lighter) flex flex-col custom-scrollbar p-2 text-gray-200 text-[1rem] ' >
-
-                    {/* loading history */}
-                    {
-                        isLoadingHistory && (
-                            <p className="text-center">
-                                Loading history...
-                            </p>
-                        )
-                    }
-
-                    {/* generated pills */}
-                    {   recentGenerations.length === 0 ? (
-                            <p className="text-center text-gray-400 py-4">
-                                No generations yet. Start generating ✨
-                            </p>
-
-                        ) : (                                
-                                recentGenerations.map((item, index)=>{
-                                    return <HistoryPills 
-                                    key={item._id}
-                                    index={index + 1}
-                                    data={item}  />
-                                })
-                            )
-                    }
-
-                </div>
-
-                {/* footer -> history page */}
-                <div className=' m-auto rounded bg-(--color-primary-light) text-(--color-accent) w-[90%] p-2 flex justify-center items-center font-semibold border border-solid border-(--color-accent) hover:bg-(--color-primary) hover:text-(--color-accent-hover) hover:cursor-pointer hover:scale-105 ' onClick={()=> openHistoryPage() } >
-                    All Generations
-                </div>
-
-            </div>
-
         </aside>
 
     )

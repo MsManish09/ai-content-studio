@@ -44,20 +44,26 @@ export default function HistoryPills({index, data}){
     }
 
     return(
-        <div className=" flex gap-2 justify-center items-center hover:bg-(--color-primary-light) hover:scale-[1.02] rounded-lg cursor-pointer  transition-all duration-200  " >
 
-            { err && (
-                <div>{err?.message}</div>
-            ) }
+        <div onClick={handleClick} className="group flex items-center justify-between gap-2 px-3 py-2.5 mb-2 rounded-xl cursor-pointer border border-(--color-border) bg-(--color-bg-quaternary) hover:bg-(--color-bg-tertiary) hover:border-(--color-border-strong) transition-all duration-200" >
 
-            <div className="w-full flex justify-between items-center h-[48px] px-4 truncate  text-[1.05rem" onClick={()=>{handleClick()}}>
+            <div className="flex min-w-0 items-center gap-2">
+                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-(--color-bg-tertiary) text-[10px] text-(--color-text-muted)">
+                    {index + 1}
+                </span>
 
-                <span className="truncate">{data.prompt} </span>
-
+                <p className="truncate text-xs font-medium text-(--color-text-secondary) group-hover:text-(--color-text-primary) transition-colors duration-200">
+                    {data?.prompt || "Untitled generation"}
+                </p>
             </div>
 
-            <MdDeleteForever onClick={handleDelete} className={ ` h-[1.2rem] w-[1.2rem] hover:text-(--color-error) hover:scale-105 mr-2 ${generationState.isDeleting ? "opacity-40 pointer-events-none" : "hover:text-(--color-error)"} `}  />
-
+            <button onClick={(e) => {
+                e.stopPropagation();
+                handleDelete();
+                }}
+                className="shrink-0 rounded-lg p-1.5 text-(--color-text-muted) hover:bg-(--color-bg-secondary) hover:text-(--color-error) transition-all duration-200" title="Delete history" >
+                <MdDeleteForever className="w-4 h-4" />
+            </button>
         </div>
     )
 }

@@ -52,13 +52,13 @@ export default function UserInput(){
 
     return(
 
-        <div className=" w-full max-w-3xl bg-(--color-primary-lighter) border border-(--color-border) rounded-xl p-4 shadow-sm ">
+        <div className=" w-full max-w-3xl bg-(--color-bg-secondary) border border-(--color-border) rounded-xl p-4 shadow-sm ">
 
             <div className=" flex flex-col md:flex-row gap-3 w-full ">
 
                 {/* Prompt */}
 
-                <input type="text" placeholder="Ask AI to generatecontent..." value={prompt} onChange={(e)=>setPrompt(e.target.value)} className=" w-full md:flex-1 px-4 py-3 rounded-lg border border-(--color-border)  bg-white outline-none focus:border-(--color-primary) " 
+                <input type="text" placeholder="Describe the content you want to generate" value={prompt} onChange={(e)=>setPrompt(e.target.value)} className=" w-full md:flex-1 px-4 py-3 rounded-lg border border-(--color-border)  bg-(--color-bg-tertiary) text-(--color-text-primary)  outline-none focus:border-(--color-border-strong) placeholder:text-(--color-text-muted) " 
                 // call api on 'enter'
                 onKeyDown={(e)=>{if(e.key==="Enter"){
                             handleGenerate()
@@ -73,7 +73,10 @@ export default function UserInput(){
 
                     <select
                     value={template}
-                    onChange={(e)=>setTemplate(e.target.value)} className=" flex-1 md:w-40 px-3 py-3 rounded-lg border border-(--color-border) bg-white cursor-pointer ">
+                    onChange={(e)=>setTemplate(e.target.value)} className=" flex-1 md:w-40 px-3 py-3 rounded-lg border border-(--color-border) bg-(--color-bg-tertiary) 
+                    text-(--color-text-primary)
+                    focus:border-(--color-border-strong)
+                    cursor-pointer ">
 
                         <option value="blog">Blog</option>
                         <option value="linkedin">LinkedIn</option>
@@ -82,9 +85,16 @@ export default function UserInput(){
 
                     </select>
 
-                    {/* Button */}
+                    {err && (
+                        <p className="text-sm text-(--color-error) ">
+                        {err}
+                        </p>
+                    )}
 
-                    <button onClick={handleGenerate} disabled={isGenerating} className=" flex-1 md:flex-none px-6 py-3 rounded-lg bg-(--color-primary)  text-white font-medium hover:bg-(--color-primary-light) transition " >
+
+                    {/* Generate Button */}
+
+                    <button onClick={handleGenerate} disabled={isGenerating} className=" flex-1 md:flex-none px-6 py-3 rounded-lg bg-(--color-bg-quaternary)  text-(--color-text-muted) font-medium hover:bg-(--color-primary-light) transition cursor-pointer " >
                         {isGenerating ? 'Generating...' : 'Generate'}
                     </button>
 
