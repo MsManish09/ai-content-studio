@@ -104,6 +104,7 @@ function HistoryCards({item, index, page}){
     const navigate = useNavigate()
     // console.log('item,: ', item)
 
+    // navigate the gneration details page
     function handleClick(){
         // console.log('History pill | genertion id: ', data._id)
         // console.log('generation id: ', item._id)
@@ -173,7 +174,11 @@ function HistoryCards({item, index, page}){
             </div>
 
             {/* Delete */}
-            <button className="p-2  text-(--color-text-muted)  hover:text-(--color-error)  hover:scale-110  rounded-md transition text-[1.5rem]" onClick={handleDeletion} >
+            <button className="p-2  text-(--color-text-muted)  hover:text-(--color-error)  hover:scale-110  rounded-md transition text-[1.5rem]" 
+            onClick={(e) => {
+                e.stopPropagation();
+                handleDeletion();
+            }} >
                 <MdDelete />
             </button>
 
