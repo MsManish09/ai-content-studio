@@ -101,6 +101,15 @@ function HistoryCards({item, index, page}){
     const formatedDate = formatSmartDate( date )
     const [err, setErr ] = useState(null)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+    // console.log('item,: ', item)
+
+    function handleClick(){
+        // console.log('History pill | genertion id: ', data._id)
+        // console.log('generation id: ', item._id)
+        navigate(`/generation/${item._id}`)
+
+    }
 
 
     // functionality to delete generation
@@ -128,7 +137,7 @@ function HistoryCards({item, index, page}){
     }
 
     return (
-        <div className="flex items-center gap-3 w-full  bg-(--color-bg-tertiary)  hover:bg-(--color-bg-quaternary)  transition  p-3 rounded-lg  border border-(--color-border) hover:border-(--color-border-strong) hover:translate-y-[2px] ">
+        <div className="flex items-center gap-3 w-full  bg-(--color-bg-tertiary)  hover:bg-(--color-bg-quaternary)  transition  p-3 rounded-lg  border border-(--color-border) hover:border-(--color-border-strong) hover:translate-y-[2px] " onClick={handleClick}>
 
             {err && (
                 <div className="text-(--color-error) text-sm">{err?.message}</div>
