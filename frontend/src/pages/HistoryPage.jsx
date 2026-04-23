@@ -48,41 +48,46 @@ export default function HistoryPage(){
     }
 
 
-    return(
-        <div className=' bg-(--color-primary) w-full h-screen relative ' >
-            
-            {/* header -> nav bar */}
+    return (
+        <div className="bg-(--color-bg-primary) w-full min-h-screen relative">
+
+            {/* Navbar */}
             <Navbar />
 
-            {/* main  */}
-            <div className=' p-4 my-[1rem]  text-(--color-text-on-primary) h-[80vh] overflow-y-auto custom-scrollbar ' >
+            {/* Main */}
+            <div className="p-4 my-4 text-(--color-text-primary) h-[80vh] overflow-y-auto custom-scrollbar">
 
-                {/* heading */}
-                <h2 className='px-2 font-bold text-[1.75rem] text-center sm:text-start ' > Content Generation History</h2>
+            {/* Heading */}
+            <h2 className="px-2 font-bold text-[1.75rem] text-center sm:text-start text-(--color-primary)">
+                Content Generation History
+            </h2>
 
-                {/* history cards */}
-                <div className=' flex flex-col gap-3 py-4 px-2 ' >
-                    
-                    {/* loading element */}
-                    {
-                        generationState.isLoadingHistory && (
-                            <p>Loading... </p>
-                        )
-                    }
+            {/* Cards */}
+            <div className="flex flex-col gap-3 py-4 px-2">
 
-                    {/* render history cards */}
-                    {
-                        generationState.generations?.data?.map((item, index)=> 
-                        <HistoryCards  key={item._id} item={item} index={index + 1} page={generationState.generations.page} />)
-                    }
+                {generationState.isLoadingHistory && (
+                <p className="text-(--color-text-muted)">Loading...</p>
+                )}
 
-                </div>
+                {generationState.generations?.data?.map((item, index) => (
+                <HistoryCards
+                    key={item._id}
+                    item={item}
+                    index={index + 1}
+                    page={generationState.generations.page}
+                />
+                ))}
 
             </div>
+            </div>
 
-            {/* footer -> pagination */}
-            <div className=' px-6 absolute bottom-[1rem] bg-(--color-primary) w-full ' >
-                <Pagination page={generationState.generations.page} totalPages={generationState.generations.totalPages} onPageChange={handlePageChange} />
+            {/* Pagination */}
+            <div className="px-6 absolute bottom-4 bg-(--color-bg-primary) w-full">
+            <Pagination
+                page={generationState.generations.page}
+                totalPages={generationState.generations.totalPages}
+                onPageChange={handlePageChange}
+            />
             </div>
 
         </div>
@@ -122,43 +127,44 @@ function HistoryCards({item, index, page}){
 
     }
 
-    return(
-        <div className='flex items-center gap-3 w-full bg-(--color-primary-lighter) hover:bg-(--color-primary-light) transition p-3 rounded-lg border border-gray-200 hover:translate-0.5'>
+    return (
+        <div className="flex items-center gap-3 w-full  bg-(--color-bg-tertiary)  hover:bg-(--color-bg-quaternary)  transition  p-3 rounded-lg  border border-(--color-border) hover:border-(--color-border-strong) hover:translate-y-[2px] ">
 
-            { err && (
-                <div>{err?.message}</div>
-            ) }
+            {err && (
+                <div className="text-(--color-error) text-sm">{err?.message}</div>
+            )}
 
-            {/* index */}
-            <p className=' flex items-center justify-center font-medium  w-8 h-8 rounded-[50%] bg-(--color-primary-light) '> {index} </p>
+            {/* Index */}
+            <p className="flex items-center justify-center font-medium  w-8 h-8 rounded-full  bg-(--color-accent-soft)  text-(--color-text-primary)">
+                {index}
+            </p>
 
-            {/* details */}
-            <div className='flex-1 min-w-0 flex flex-col sm:flex-row sm:items-center gap-2'>
+            {/* Details */}
+            <div className="flex-1 min-w-0 flex flex-col sm:flex-row sm:items-center gap-2">
 
-                {/* prompt */}
-                <p className='flex-1 text-sm font-medium truncate'>
-                    {item.prompt}
-                </p>
+            {/* Prompt */}
+            <p className="flex-1 text-sm font-medium truncate text-(--color-text-primary)">
+                {item.prompt}
+            </p>
 
-                {/* right section */}
-                <div className='flex items-center gap-2 text-xs'>
+            {/* Right section */}
+                <div className="flex items-center gap-2 text-xs">
 
-                    {/* template */}
-                    <span className=' w-30 flex items-center sm:h-8 justify-center text-[1rem] font-mono font-bold h-6 px-3 py-1 bg-(--color-accent-hover) rounded-md '>
+                    {/* Template */}
+                    <span className="flex items-center justify-center  text-sm font-mono font-semibold  px-3 py-1 rounded-md  bg-(--color-accent-soft)  text-(--color-primary)">
                         {item.template}
                     </span>
 
-                    {/* date */}
-                    <span className='w-30 h-6 sm:h-8 flex items-center justify-center text-xs text-gray-600 bg-gray-100 rounded-md whitespace-nowrap font-mono'>
+                    {/* Date */}
+                    <span className="flex items-center justify-center  text-xs font-mono  px-3 py-1 rounded-md  bg-(--color-bg-secondary)  text-(--color-text-secondary)  whitespace-nowrap">
                         {formatedDate}
                     </span>
 
                 </div>
-
             </div>
 
-            {/* delete */}
-            <button className='p-2 text-gray-400 hover:text-(--color-error) hover:scale-110 hover:cursor-pointer rounded-md transition text-[1.5rem] ' onClick={handleDeletion}>
+            {/* Delete */}
+            <button className="p-2  text-(--color-text-muted)  hover:text-(--color-error)  hover:scale-110  rounded-md transition text-[1.5rem]" onClick={handleDeletion} >
                 <MdDelete />
             </button>
 

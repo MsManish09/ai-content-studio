@@ -5,39 +5,47 @@ export default function Pagination({ page, totalPages, onPageChange }){
 
     // if(totalPages <= 1){
     //     return null
-    // }
+    // 
 
+    return (
+        <div className="flex items-center justify-center gap-2">
 
-
-    return(
-
-        <div className="flex gap-2 mt-6">
-
-            {/*  previous btn */}
-            <button className={` px-3 py-1 rounded bg-(--color-accent) hover:bg-(--color-accent-hover) hover:cursor-pointer hover:scale-105 disabled-${ page === 1} `  } disabled={page===1} onClick={()=>onPageChange(page-1)}>
-                Prev
+            {/* Prev Button */}
+            <button onClick={() => onPageChange(page - 1)} disabled={page === 1} className={`px-3 py-1 rounded-md text-sm font-medium transition
+                ${
+                page === 1
+                    ? "disabled-true bg-(--color-bg-secondary) text-(--color-text-muted)"
+                    : "bg-(--color-bg-tertiary) text-(--color-text-primary) hover:bg-(--color-bg-quaternary)"
+                }`} >
+                    Prev
             </button>
 
-            {[...Array(totalPages)].map((_,index)=>{
-
-                const pageNumber = index + 1
-                return(  
-
-                    <button key={pageNumber} onClick={()=>onPageChange(pageNumber)}
-                        className={`px-3 py-1 rounded ${page === pageNumber ? "bg-blue-600 text-white": "bg-gray-200"} hover:cursor-pointer hover:scale-105` } >
-                        {pageNumber}
+            {/* Page Numbers */}
+            <div className="flex items-center gap-1">
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
+                    <button key={p} onClick={() => onPageChange(p)} className={`px-3 py-1 rounded-md text-sm font-medium transition
+                        ${
+                        p === page
+                            ? "bg-(--color-primary) text-(--color-text-on-primary)"
+                            : "bg-(--color-bg-tertiary) text-(--color-text-secondary) hover:bg-(--color-bg-quaternary) hover:text-(--color-text-primary)"
+                        }`} >
+                            {p}
                     </button>
+                ))}
+            </div>
 
-                )
-
-            })}
-
-            {/* next btn */}
-            <button className={` px-3 py-1 rounded bg-(--color-accent) hover:scale-105 hover:bg-(--color-accent-hover) hover:cursor-pointer disabled-${page===totalPages} ` } disabled={page===totalPages} onClick={()=>onPageChange(page+1)}>
+            {/* Next Button */}
+            <button  onClick={() => onPageChange(page + 1)}  disabled={page === totalPages}  className={`px-3 py-1 rounded-md text-sm font-medium transition
+                ${
+                page === totalPages
+                    ? "disabled-true bg-(--color-bg-secondary) text-(--color-text-muted)"
+                    : "bg-(--color-bg-tertiary) text-(--color-text-primary) hover:bg-(--color-bg-quaternary)"
+                }`}
+            >
                 Next
             </button>
 
         </div>
- )
+    )
 
 }
