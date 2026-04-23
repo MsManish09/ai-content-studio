@@ -8,47 +8,75 @@ export default function UserDetails() {
     const { user } = useSelector((state) => state.auth)
 
     return (
-        <div className=" w-[100vw] h-[100vh] bg-(--color-primary) text-(--color-accent) font-bold text-[2.5rem] " >
+        <div className="w-[100vw] min-h-screen bg-(--color-bg-primary) text-(--color-text-primary)">
 
             {/* header */}
             <NavBar />
 
             {/* main */}
-            <div className=" flex flex-wrap p-6 w-full justify-evenly items-center gap-10 " >
+            <div className="flex flex-wrap p-8 w-full justify-center items-start gap-10">
+
                 {/* user details */}
-                <div className=" border-2 border-solid border-(--color-text-muted) flex flex-col justify-center items-center w-[350px] p-4 rounded-2xl bg-(--color-text-secondary) shadow-[0_0_25px_#6B7A90] "  >
+                <div className="border border-(--color-border) flex flex-col justify-start items-start w-[380px] p-6 rounded-lg bg-(--color-bg-tertiary)">
+
                     {/* image  */}
-                    <div className=" w-[90%] h-[250px] flex justify-center " >
-                        <BsPersonCircle className=" w-full h-full " />
+                    <div className="w-full h-[180px] flex justify-center items-center text-(--color-text-muted) mb-4">
+                        <BsPersonCircle className="w-[80px] h-[80px]" />
                     </div>
 
                     {/* detail */}
-                    <div className=" p-4 text-[1.25rem]  w-full flex flex-col justify-start  " >
+                    <div className="w-full flex flex-col gap-3 text-[0.95rem]">
 
-                        <h3>Name: {user.name}</h3>
-                        <h3>email: {user.email} </h3>
+                        <h3 className="flex justify-between border-b border-(--color-border) pb-2">
+                            <span className="text-(--color-text-muted)">Name</span>
+                            <span className="text-(--color-text-primary)">{user.name}</span>
+                        </h3>
+
+                        <h3 className="flex justify-between">
+                            <span className="text-(--color-text-muted)">Email</span>
+                            <span className="text-(--color-text-primary)">{user.email}</span>
+                        </h3>
+
                     </div>
                 </div>
 
 
                 {/* usage details */}
                 <div>
-                    <div className=" border-2 border-solid border-(--color-text-muted) flex flex-col justify-center items-center w-[350px] rounded-2xl bg-(--color-text-secondary) shadow-[0_0_25px_#6B7A90] "  >
-                    {/* headline  */}
-                    <div className=" bg-(--color-primary) w-full rounded-t-2xl text-[1.5rem] text-center p-2 text-(--color-accent-hover) " >
-                        <h3>Account Details</h3>
-                    </div>
+                    <div className="border border-(--color-border) flex flex-col justify-start items-start w-[380px] rounded-lg bg-(--color-bg-tertiary)">
 
-                    {/* detail */}
-                    <div className=" p-6 text-[1.25rem]  w-full flex flex-col justify-start  " >
+                        {/* headline  */}
+                        <div className="w-full text-[1rem] font-medium p-4 border-b border-(--color-border) text-(--color-text-primary)">
+                            <h3>Account Details</h3>
+                        </div>
 
-                        <h3>Plan : {user.plan}</h3>
-                        <h3>Usage Count : {user.usageCount} </h3>
-                        <h3>Tokens Used Today : {user.tokensUsedToday}</h3>
-                        <h3>Total Tokens Used : {user.totalTokensUsed}</h3>
+                        {/* detail */}
+                        <div className="p-5 w-full flex flex-col gap-3 text-[0.95rem]">
+
+                            <h3 className="flex justify-between border-b border-(--color-border) pb-2">
+                                <span className="text-(--color-text-muted)">Plan</span>
+                                <span className="text-(--color-text-primary)">{user.plan}</span>
+                            </h3>
+
+                            <h3 className="flex justify-between border-b border-(--color-border) pb-2">
+                                <span className="text-(--color-text-muted)">Usage Count</span>
+                                <span className="text-(--color-text-primary)">{user.usageCount}</span>
+                            </h3>
+
+                            <h3 className="flex justify-between border-b border-(--color-border) pb-2">
+                                <span className="text-(--color-text-muted)">Tokens Today</span>
+                                <span className="text-(--color-text-primary)">{user.tokensUsedToday}</span>
+                            </h3>
+
+                            <h3 className="flex justify-between">
+                                <span className="text-(--color-text-muted)">Total Tokens</span>
+                                <span className="text-(--color-text-primary)">{user.totalTokensUsed}</span>
+                            </h3>
+
+                        </div>
                     </div>
                 </div>
-                </div>
+
             </div>
 
         </div>

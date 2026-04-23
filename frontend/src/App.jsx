@@ -35,6 +35,7 @@ function App() {
     if(authState.user){
       dispatch(historyThunk())
     }
+    // console.log('user: ', authState.user)
   }, [authState.user])  
 
   // display loading, while authenticating

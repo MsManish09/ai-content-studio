@@ -1,11 +1,21 @@
 
 export default function FullScreenLoading(){
     return (
-    <div className="h-screen flex flex-col gap-6 justify-center items-center bg-(--color-primary)">
-        <div className="w-20 h-20 border-8 border-(--color-primary-light) border-t-(--color-accent) rounded-full animate-spin shadow-[0_0_20px_var(--color-accent)]"></div>
-        <p className="text-(--color-text-on-primary) text-sm tracking-wide">
-                Loading...
-        </p>
-    </div>
+        <div className="w-full h-screen flex items-center justify-center bg-(--color-bg-primary)">
+
+            <div className="flex flex-col items-center gap-4">
+
+                {/* Loader */}
+                <div className="w-10 h-10 border-4  border-(--color-border)  border-t-(--color-primary)  rounded-full animate-spin">
+                </div>
+
+                {/* Text */}
+                <p className="text-sm text-(--color-text-muted)">
+                    Loading...
+                </p>
+
+            </div>
+
+        </div>
     )
 }

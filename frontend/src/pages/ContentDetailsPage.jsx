@@ -68,7 +68,7 @@ export default function ContentDetailsPage(){
             </div>
 
             {/* contnet */}
-            <div className=" text-gray-200 relative bg-(--color-primary-lighter) p-5 md:p-6 rounded-xl border mb-6">
+            <div className=" text-gray-200 relative bg-(--color-bg-secondary) p-5 md:p-6 rounded-xl border mb-6">
 
                 {/* back btn */}
                 <div className="flex items-start gap-3 mb-4 ">
