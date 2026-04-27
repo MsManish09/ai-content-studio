@@ -77,3 +77,23 @@ body {
   opacity: 0.6;
 
 }
+
+
+/* upgrade button animaition -> to catch users attention */
+@keyframes subtleZoom {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.04);
+    background-color: #35a27c;
+  }
+}
+
+.subtle-zoom {
+  animation: subtleZoom 2.8s ease-in-out infinite;
+}
+.subtle-zoom:hover {
+  animation: none;
+  transform: scale(1.05); /* keep it slightly enlarged so it feels responsive */
+}

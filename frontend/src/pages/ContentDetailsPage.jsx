@@ -15,6 +15,7 @@ export default function ContentDetailsPage(){
     const { id } = useParams()
     let [generation, setGeneration ]= useState(null)
     const navigate = useNavigate()
+    
 
     useEffect(()=>{
         getDetails()
@@ -64,7 +65,7 @@ export default function ContentDetailsPage(){
                 {/* back btn */}
                 <div className="flex items-center gap-3 mb-5">
                     <IoArrowBack 
-                        onClick={()=>navigate('/')} 
+                        onClick={() => navigate(-1)} 
                         className="w-5 h-5 text-(--color-text-muted) cursor-pointer hover:text-(--color-primary-light) transition-colors duration-200" 
                     />
                 </div>

@@ -13,6 +13,8 @@ import UserDetails from "./pages/auth/UserDetails.jsx"
 import {Toaster} from "react-hot-toast"
 import {  historyThunk } from "./redux/generationSlice.js"
 import HistoryPage from "./pages/HistoryPage.jsx"
+import NotFound from "./components/NotFound.jsx"
+import ContentDetailsPage from "./pages/ContentDetailsPage.jsx"
 
 function App() {
 
@@ -55,7 +57,7 @@ function App() {
     
       <Routes>
 
-        <Route path='/*' element={
+        <Route path='/' element={
           <ProctectedRoutes>
             <DashBoard />
           </ProctectedRoutes>
@@ -76,6 +78,7 @@ function App() {
               <UserDetails />
             </ProctectedRoutes>
           } 
+          
         />
 
         <Route 
@@ -87,7 +90,17 @@ function App() {
           } 
         />
 
+        <Route path="/generation/:id"
+         element={
+          <ProctectedRoutes>
+              <ContentDetailsPage />
+          </ProctectedRoutes>
+          } 
+        />
 
+
+        {/* Default error route */}
+        <Route path="*" element={<NotFound />} />
 
       </Routes>
 
