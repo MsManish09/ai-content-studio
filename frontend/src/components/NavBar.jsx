@@ -3,16 +3,18 @@ import { IoPersonCircleSharp } from "react-icons/io5";
 import { FaSignOutAlt } from "react-icons/fa";
 import { MdOutlineChat } from "react-icons/md";
 import { logoutThunk } from '../redux/authSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import {clearGenerationState} from '/src/redux/generationSlice.js'
 import { RxHamburgerMenu } from 'react-icons/rx';
 import toast from 'react-hot-toast';
+import PlanUpgradeButton from './PlanUpgradeButton';
 
 export default function NavBar({setIsSidebarOpen}){
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const plan = useSelector((state) => state.auth?.user?.plan);
 
     // funciton to logout
     async function handleLogout(){
@@ -77,6 +79,11 @@ export default function NavBar({setIsSidebarOpen}){
                     <span className="h-1.5 w-1.5 rounded-full bg-(--color-success) animate-pulse" />
                     <span>Workspace ready</span>
                 </div>
+
+                {/* pro upgrade button - visible only for free users */}
+                {plan && plan.toLowerCase() === "free" && (
+                    <PlanUpgradeButton />
+                )}
 
                 {/* Right: chat, profile, logout */}
                 <div className="flex items-center gap-2 sm:gap-3">
