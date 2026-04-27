@@ -1,13 +1,13 @@
-import toast from "react-hot-toast"
-import { useNavigate, useParams } from "react-router-dom"
-import { individualGenerationDetails } from "../api/generationAPI.js"
-import ReactMarkdown from "react-markdown"
-import remarkGfm from "remark-gfm"
-import { useEffect, useState } from "react"
+import toast from "react-hot-toast";
+import { useNavigate, useParams } from "react-router-dom";
+import { individualGenerationDetails } from "../api/generationAPI.js";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import { useEffect, useState } from "react";
 import { MdCopyAll } from "react-icons/md";
-import { IoArrowBack } from "react-icons/io5"
-import FullScreenLoading from '../components/FullScreenLoading.jsx'
-import InfoCard from "../components/InfoCard.jsx"
+import { IoArrowBack } from "react-icons/io5";
+import FullScreenLoading from '../components/FullScreenLoading.jsx';
+import InfoCard from "../components/InfoCard.jsx";
 
 
 export default function ContentDetailsPage(){

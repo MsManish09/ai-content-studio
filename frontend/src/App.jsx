@@ -15,6 +15,8 @@ import {  historyThunk } from "./redux/generationSlice.js"
 import HistoryPage from "./pages/HistoryPage.jsx"
 import NotFound from "./components/NotFound.jsx"
 import ContentDetailsPage from "./pages/ContentDetailsPage.jsx"
+import ProPlanDetailsPage from "./pages/upgradePlan/ProPlanDetails.jsx"
+import Billing from "./pages/upgradePlan/Billing.jsx"
 
 function App() {
 
@@ -97,6 +99,23 @@ function App() {
           </ProctectedRoutes>
           } 
         />
+
+        <Route path="/upgrade"
+         element={
+          <ProctectedRoutes>
+              <ProPlanDetailsPage />
+          </ProctectedRoutes>
+          } 
+        />
+
+        <Route path="/billing"
+         element={
+          <ProctectedRoutes>
+              <Billing />
+          </ProctectedRoutes>
+          } 
+        />
+
 
 
         {/* Default error route */}
