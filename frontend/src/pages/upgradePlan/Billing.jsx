@@ -3,7 +3,7 @@ import { useState } from "react";
 export default function Billing() {
   const [loading, setLoading] = useState(false)
 
-  const handlePayment = (e) => {
+  function handlePayment(e){
     e.preventDefault()
     setLoading(true)
 
