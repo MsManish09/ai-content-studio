@@ -1,15 +1,64 @@
 import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function Billing() {
   const [loading, setLoading] = useState(false)
+  const [showModal, setModal] = useState(false)
+  const [generatedOTP, setGeneratedOTP] = useState("")
+  const [enteredOTP, setEnteredOTP] = useState("")
+  const [OTPError, setOTPError]= useState("")
 
-  function handlePayment(e){
-    e.preventDefault()
+  // function to validate OTP
+  async function verifyOTP(){
+    
+    if(enteredOTP !== generatedOTP){
+      setOTPError("Invalid OTP")
+      return
+    }
+
+    setOTPError("")
     setLoading(true)
 
-    // simulate API call
+    // close modal
+    setModal(false)
+
+    // simulate payment processing
+    setTimeout(()=>{
+      setLoading(false)
+
+      toast.success('Payment succesful (DEMO), upgraded to Pro ')
+    }, 500)
+
+  }
+
+  // functin to generate random 4 digit opt
+  function generateOTP(){
+    return Math.floor(1000 + Math.random() * 9000).toString()
+  }
+
+  // function to handle payment
+  function handlePayment(e){
+    e.preventDefault()
+
+    setLoading(true)
+    // simulate API call -> 2 sec delay
     setTimeout(() => {
-      alert("Payment Successful (Demo)")
+    
+     //generate and set otp
+      const otp = generateOTP()
+      setGeneratedOTP(otp)
+      setEnteredOTP("")
+      setOTPError("")
+
+      // open modal
+      setModal(true)
+      
+      // plan upgrade success message
+      toast.success(`Demo OTP: ${otp}`, {
+        duration: 6000
+      })
+
+
       setLoading(false)
     }, 2000)
   }
@@ -100,8 +149,7 @@ export default function Billing() {
         {/* CTA Button */}
         <button
           type="submit"
-          className="w-full py-3 rounded-xl bg-(--color-primary) text-(--color-text-on-primary) font-medium subtle-zoom"
-        >
+          className="w-full py-3 rounded-xl bg-(--color-primary) text-(--color-text-on-primary) font-medium subtle-zoom" >
           {loading ? "Processing..." : "Pay ₹499 →"}
         </button>
 
@@ -109,7 +157,61 @@ export default function Billing() {
         <p className="text-xs text-center text-(--color-text-muted)">
           This is a demo payment. No real charges will be made.
         </p>
+
+        {/* payment confimratin modal */}
+        {
+          showModal && (
+            <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+
+              <div className="bg-(--color-bg-secondary) p-6 rounded-2xl w-full max-w-md border border-(--color-border)">
+
+                <h2 className="text-xl font-semibold mb-2">
+                  Confirm Payment
+                </h2>
+
+                <p className="text-sm text-(--color-text-secondary) mb-6">
+                  Enter the 4-digit OTP sent for payment confirmation.
+                </p>
+
+                <input
+                  type="text"
+                  maxLength={4}
+                  value={enteredOTP}
+                  onChange={(e) => setEnteredOTP(e.target.value)}
+                  placeholder="Enter OTP"
+                  className="w-full px-4 py-3 rounded-xl bg-(--color-bg-tertiary) border border-(--color-border) focus:outline-none"
+                />
+
+                {
+                  OTPError && (
+                    <p className="text-red-500 text-sm mt-2">
+                      {OTPError}
+                    </p>
+                  )
+                }
+
+                <div className="flex gap-3 mt-6">
+
+                  <button
+                    onClick={() => setModal(false)}
+                    className="flex-1 py-3 rounded-xl border border-(--color-border)"
+                  >
+                    Cancel
+                  </button>
+
+                  <button onClick={verifyOTP} className="flex-1 py-3 rounded-xl bg-(--color-primary) text-black" >
+                    Confirm
+                  </button>
+
+                </div>
+              </div>
+            </div>
+          )
+        }
+
       </form>
     </div>
   )
 }
+
+
