@@ -28,8 +28,5 @@ export default async function planUpgrade(userId){
         name: user.name,
         email: user.email,
         plan: user.plan,
-        usageCount: user.usageCount,
-        tokensUsedToday: user.tokensUsedToday,
-        totalTokensUsed: user.totalTokensUsed
     }
 }
