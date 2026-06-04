@@ -1,25 +1,28 @@
-
 import { UserModel } from "../../models/Users.model.js";
 
-// implement get me
-export  async function getMeService(userId){
 
+export default async function planUpgrade(userId){
+
+    // console.log('Userid: ', userId)
     const user = await UserModel.findById(userId)
+    // console.log('User: ', user)
 
-    // if no user
     if(!user){
         throw new Error('User not found')
     }
 
-    // reset usage limit for new day
-    const today = new Date().toDateString()
-    if(user.usageDate?.toDateString() !== today){
-        user.usageCount = 0 
-        user.tokensUsedToday = 0
-        user.usageDate = new Date()
+    // if user already pro user
+    if(user.plan == 'pro'){
+        throw new Error('Pro plan already activated')
     }
 
-    // return user details
+    // update plan to pro 
+    user.plan = 'pro'
+
+    // save the update
+    await user.save()
+
+    // return updated uesr details
     return {
         id: user._id,
         name: user.name,
@@ -29,6 +32,4 @@ export  async function getMeService(userId){
         tokensUsedToday: user.tokensUsedToday,
         totalTokensUsed: user.totalTokensUsed
     }
-
-
 }

@@ -3,6 +3,8 @@ import {getMeService} from "../../services/auth/getMe.js";
 
 export async function getMe(req, res, next){
 
+    console.log('userId: ', req.userId)
+
     try {
         const user = await getMeService(req.userId)
 

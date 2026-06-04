@@ -5,6 +5,7 @@ import { login } from '../controllers/auth/loginUser.controller.js'
 import { getMe } from '../controllers/auth/getMe.controller.js'
 import authMiddleware from '../middlewares/authMiddleware.js'
 import logoutUser from '../controllers/auth/logoutUser.controller.js'
+import planUpgradeController from '../controllers/auth/planUpgrade.controller.js'
 
 const router = express.Router()
 
@@ -19,6 +20,9 @@ router.get('/me', authMiddleware, getMe)
 
 // logout user -> POST /api/auth/logout
 router.post('/logout', logoutUser)
+
+// update user plan to pro route -> PUT /api/auth/upgrade
+router.put('/upgrade', authMiddleware,  planUpgradeController)
 
 
 export default router
