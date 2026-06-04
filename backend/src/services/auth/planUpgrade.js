@@ -3,21 +3,30 @@ import { UserModel } from "../../models/Users.model.js";
 
 export default async function planUpgrade(userId){
 
-    // console.log('Userid: ', userId)
     const user = await UserModel.findById(userId)
-    // console.log('User: ', user)
 
-    if(!user){
-        throw new Error('User not found')
+    // if no user found
+    if (!user) {
+        const error = new Error("User not found")
+        error.statusCode = 404
+        throw error
     }
 
-    // if user already pro user
-    if(user.plan == 'pro'){
-        throw new Error('Pro plan already activated')
+    // already pro plan
+    if (user.plan === "pro") {
+        const error = new Error(
+            "Pro plan already activated"
+        )
+
+        error.statusCode = 409
+        throw error
     }
 
     // update plan to pro 
     user.plan = 'pro'
+
+    // plan update time stamp
+    user.planUpgradedAt = new Date()
 
     // save the update
     await user.save()

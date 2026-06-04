@@ -11,8 +11,10 @@ export default async function planUpgradeController(req, res, next){
             data: result
         })
         
-    } catch (error) {
-        res.status(400).json({
+    } catch(error){
+        res.status(
+            error.statusCode || 500
+        ).json({
             message: error.message
         })
     }
