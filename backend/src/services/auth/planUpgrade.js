@@ -25,8 +25,14 @@ export default async function planUpgrade(userId){
     // update plan to pro 
     user.plan = 'pro'
 
-    // plan update time stamp
-    user.planUpgradedAt = new Date()
+    // plan update time stamp + plan expiration calculation
+    const now = new Date()
+
+    const expiresAt = new Date(now)
+    expiresAt.setDate( expiresAt.getDate() + 365 )
+
+    user.planUpgradedAt = now
+    user.planExpiresAt = expiresAt
 
     // save the update
     await user.save()

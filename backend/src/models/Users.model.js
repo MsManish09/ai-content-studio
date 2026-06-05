@@ -36,6 +36,16 @@ const userSchema = new mongoose.Schema({
         default: 'free'
     },
 
+    planUpgradedAt: {
+        type: Date,
+        default: null
+    },
+
+    planExpiresAt: {
+        type: Date,
+        default: null
+    },
+
     usageCount: {
         type: Number, 
         default: 0

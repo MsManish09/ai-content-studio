@@ -11,6 +11,13 @@ export  async function getMeService(userId){
         throw new Error('User not found')
     }
 
+    // pro plan auto expiration -> after 365 days.
+    if( user.plan === 'pro' && user.planExpiresAt && planExpiresAt < new Date() ){
+        user.plan = 'free'
+        user.planUpgradedAt = null
+        user.planExpiresAt = null
+    }
+
     // reset usage limit for new day
     const today = new Date().toDateString()
     if(user.usageDate?.toDateString() !== today){
@@ -25,6 +32,8 @@ export  async function getMeService(userId){
         name: user.name,
         email: user.email,
         plan: user.plan,
+        planUpgradedAt: user.planUpgradedAt,
+        planExpiresAt: user.planExpiresAt,
         usageCount: user.usageCount,
         tokensUsedToday: user.tokensUsedToday,
         totalTokensUsed: user.totalTokensUsed
