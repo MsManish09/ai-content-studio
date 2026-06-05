@@ -1,5 +1,9 @@
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { upgradePlanThunk } from "../../redux/authSlice";
+import { useDispatch, useSelector } from "react-redux"
+import { useNavigate } from "react-router-dom";
+
 
 export default function Billing() {
   const [loading, setLoading] = useState(false)
@@ -7,27 +11,40 @@ export default function Billing() {
   const [generatedOTP, setGeneratedOTP] = useState("")
   const [enteredOTP, setEnteredOTP] = useState("")
   const [OTPError, setOTPError]= useState("")
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
-  // function to validate OTP
+ 
+
+  // function to validate OTP and call upgrade api
   async function verifyOTP(){
-    
+
     if(enteredOTP !== generatedOTP){
       setOTPError("Invalid OTP")
       return
     }
 
-    setOTPError("")
-    setLoading(true)
+    try{
+      
+      await dispatch(
+          upgradePlanThunk()
+        ).unwrap()
 
-    // close modal
-    setModal(false)
+        // if plan upgrade successful -> toast success message
+        toast.success("Plan upgraded")
+        setModal(false)
 
-    // simulate payment processing
-    setTimeout(()=>{
-      setLoading(false)
+        // after succesful upgradation ->  redirect to home page
+        navigate("/")
 
-      toast.success('Payment succesful (DEMO), upgraded to Pro ')
-    }, 500)
+    }
+    
+    // if upgrade api fails -> toasts error message
+    catch(error){
+        toast.error(error)
+    }
+
+  
 
   }
 
@@ -41,6 +58,7 @@ export default function Billing() {
     e.preventDefault()
 
     setLoading(true)
+
     // simulate API call -> 2 sec delay
     setTimeout(() => {
     
@@ -141,7 +159,7 @@ export default function Billing() {
           <input
             type="text"
             placeholder="John Doe"
-            className="w-full mt-2 px-4 py-3 rounded-xl bg-(--color-bg-tertiary)] border border-(--color-border) focus:outline-none focus:border-(--color-border-strong) "
+            className="w-full mt-2 px-4 py-3 rounded-xl bg-(--color-bg-tertiary) border border-(--color-border) focus:outline-none focus:border-(--color-border-strong) "
             required
           />
         </div>
@@ -193,13 +211,14 @@ export default function Billing() {
                 <div className="flex gap-3 mt-6">
 
                   <button
+                    type="button"
                     onClick={() => setModal(false)}
                     className="flex-1 py-3 rounded-xl border border-(--color-border)"
                   >
                     Cancel
                   </button>
 
-                  <button onClick={verifyOTP} className="flex-1 py-3 rounded-xl bg-(--color-primary) text-black" >
+                  <button type="button" onClick={verifyOTP} className="flex-1 py-3 rounded-xl bg-(--color-primary) text-black" >
                     Confirm
                   </button>
 

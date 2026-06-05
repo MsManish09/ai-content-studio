@@ -1,6 +1,6 @@
 
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getCurrentUser, loginUser, logoutUser, registerUser } from "../api/authAPI.js";
+import { getCurrentUser, loginUser, logoutUser, registerUser, upgradeUserPlan } from "../api/authAPI.js";
 
 const initialState = {
     user: null,
@@ -9,6 +9,30 @@ const initialState = {
     error: null,
     isCheckingAuth: true, 
 }
+
+// userPlan upgrade thunk
+export const upgradePlanThunk = createAsyncThunk('auth/upgradePlan',
+    async(_, thunkAPI)=>{
+        try {
+
+            const res = await upgradeUserPlan()
+
+            // call the getme api to update the frontend
+
+            await thunkAPI.dispatch(
+                getMeThunk()
+            )
+            return res
+        } 
+        
+        catch (error) {
+            
+            return thunkAPI.rejectWithValue(
+                error.response?.data?.message || 'plan upgrade failed!'
+            )
+        }
+    }
+)
 
 // register thunk
 export const registerThunk = createAsyncThunk(
@@ -135,6 +159,18 @@ const authSlice = createSlice({
         // registerThunk
         .addCase(registerThunk.fulfilled, (state)=>{
             state.loading=false
+        })
+        // user plan upgrade case
+        .addCase(upgradePlanThunk.pending, (state)=>{
+            state.loading = true
+        })
+        .addCase( upgradePlanThunk.fulfilled, (state, action)=>{
+            state.loading = false
+
+        } )
+        .addCase(upgradePlanThunk.rejected, (state, action)=>{
+            state.loading=false
+            state.error = action.payload
         })
     }
 })

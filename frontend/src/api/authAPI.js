@@ -28,3 +28,9 @@ export async function getCurrentUser(){
     const res = await axiosInstance.get('/auth/me')
     return res.data
 }
+
+// call plan upgrade api
+export async function upgradeUserPlan(){
+    const res = await axiosInstance.put('/auth/upgrade')
+    return res.data
+}

@@ -43,5 +43,7 @@ export default async function planUpgrade(userId){
         name: user.name,
         email: user.email,
         plan: user.plan,
+        planUpgradedAt: user.planUpgradedAt,
+        planExpiresAt: user.planExpiresAt
     }
 }

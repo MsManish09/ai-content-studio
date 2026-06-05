@@ -12,10 +12,12 @@ export  async function getMeService(userId){
     }
 
     // pro plan auto expiration -> after 365 days.
-    if( user.plan === 'pro' && user.planExpiresAt && planExpiresAt < new Date() ){
+    if( user.plan === 'pro' && user.planExpiresAt && user.planExpiresAt < new Date() ){
         user.plan = 'free'
         user.planUpgradedAt = null
         user.planExpiresAt = null
+
+        await user.save()
     }
 
     // reset usage limit for new day
@@ -24,6 +26,8 @@ export  async function getMeService(userId){
         user.usageCount = 0 
         user.tokensUsedToday = 0
         user.usageDate = new Date()
+
+        await user.save()
     }
 
     // return user details
