@@ -81,7 +81,7 @@ export default function UserInput(){
                         <option value="blog">Blog</option>
                         <option value="linkedin">LinkedIn</option>
                         <option value="tweet">Tweet</option>
-                        <option value="email">Email</option>
+                        <option value="instagram">Instragram</option>
 
                     </select>
 
