@@ -13,6 +13,7 @@ export default function HistoryPage(){
     const generationState = useSelector(state => state.generation)
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    
     // extact page number from the url
     const [searchParams] = useSearchParams()
     let page = Number(searchParams.get("page")) || 1

@@ -161,6 +161,13 @@ const generationSlice = createSlice({
         })
         .addCase(deleteIndividualHistoryThunk.fulfilled, (state, action)=>{
             state.isDeleting = false
+
+            // update history page immediately
+            state.generations.data = state.generations.data.filter(
+                item => item._id !== action.payload._id
+            )
+
+            // update sidebar history section
             state.recentGenerations = state.recentGenerations.filter(
                 item => item._id !== action.payload._id
             )
