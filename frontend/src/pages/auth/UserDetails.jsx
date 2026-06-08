@@ -2,7 +2,7 @@ import { BsPersonCircle } from "react-icons/bs";
 import { useSelector } from 'react-redux';
 import NavBar from '../../components/NavBar.jsx'
 import PlanUpgradeButton from '../../components/PlanUpgradeButton.jsx'
-
+import { formatDate, getDaysRemaining } from "../../utils/subcriptionUtils.js";
 
 export default function UserDetails() {
 
@@ -10,19 +10,9 @@ export default function UserDetails() {
     const plan = user?.plan
     console.log('User details: ', user)
 
-    // date formatter.
-    function formatDate(dateString) {
-        const date = new Date(dateString);
-
-        const day = String(date.getUTCDate()).padStart(2, '0');
-        const month = String(date.getUTCMonth() + 1).padStart(2, '0')
-        const year = date.getUTCFullYear()
-
-        return `${day}/${month}/${year}`
-    }
 
     return (
-        <div className="w-[100vw] min-h-screen bg-(--color-bg-primary) text-(--color-text-primary)">
+        <div className="w-full min-h-screen bg-(--color-bg-primary) text-(--color-text-primary)">
 
             {/* header */}
             <NavBar />
@@ -48,7 +38,7 @@ export default function UserDetails() {
 
                         <h3 className="flex justify-between">
                             <span className="text-(--color-text-muted)">Email</span>
-                            <span className="text-(--color-text-primary)">{user.email}</span>
+                            <span className="text-(--color-text-primary) truncate ">{user.email}</span>
                         </h3>
 
                     </div>
@@ -57,6 +47,7 @@ export default function UserDetails() {
 
                 {/*  plan details */}
                 <div>
+                    
                     <div className="border border-(--color-border) flex flex-col justify-start items-start w-[380px] rounded-lg bg-(--color-bg-tertiary)">
 
                         {/* headline  */}
@@ -95,9 +86,10 @@ export default function UserDetails() {
                     </div>
                     
                     {/* pro user only: pro plan details  */}
+
                     {
                         user.plan === 'pro' && 
-                        <div className="mt-8 w-[380px] overflow-hidden rounded-2xl border border-amber-300 bg-gradient-to-br from-amber-50 via-yellow-50 to-amber-100 shadow-lg">
+                        <div className="mt-8 w-[380px] rounded-2xl border border-amber-300 bg-gradient-to-br from-amber-50 via-yellow-50 to-amber-100 shadow-[0_0_50px_rgba(255,230,150,0.25)] ">
 
                             {/* Header */}
                             <div className="flex items-center justify-between border-b border-amber-200 px-5 py-4">
@@ -141,7 +133,7 @@ export default function UserDetails() {
                                         Remaining Access
                                     </span>
                                     <span className="font-semibold text-amber-900">
-                                        200 Days
+                                        { getDaysRemaining(user.planExpiresAt) } Days
                                     </span>
                                 </div>
 
@@ -151,21 +143,21 @@ export default function UserDetails() {
                                     <div className="flex items-center gap-3">
                                         <span className="text-lg text-amber-700 ">✦</span>
                                         <span className="font-medium text-zinc-900">
-                                            Infinite Creative Power
+                                            Unlimited AI Creations
                                         </span>
                                     </div>
 
                                     <div className="flex items-center gap-3">
                                         <span className="text-lg text-amber-700 ">✦</span>
                                         <span className="font-medium text-zinc-900">
-                                            Unlimited Generations
+                                            Lightning-Fast Priority Queue
                                         </span>
                                     </div>
 
                                     <div className="flex items-center gap-3">
                                         <span className="text-lg text-amber-700 ">✦</span>
                                         <span className="font-medium text-zinc-900">
-                                            Exclusive Premium Features
+                                            Premium Workspace Experience
                                         </span>
                                     </div>
 
@@ -174,6 +166,7 @@ export default function UserDetails() {
                             </div>
                         </div>
                     }
+                    
                 </div>
 
             </div>
