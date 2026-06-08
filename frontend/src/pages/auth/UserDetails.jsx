@@ -55,7 +55,7 @@ export default function UserDetails() {
                 </div>
 
 
-                {/* pro plan details */}
+                {/*  plan details */}
                 <div>
                     <div className="border border-(--color-border) flex flex-col justify-start items-start w-[380px] rounded-lg bg-(--color-bg-tertiary)">
 
@@ -69,14 +69,10 @@ export default function UserDetails() {
 
                             <h3 className="flex justify-between border-b border-(--color-border) pb-2  items-center  gap-2">
                                 <span className="text-(--color-text-muted)">Plan</span>
-                                <span className="text-(--color-text-primary) flex items-center justify-center gap-2 ">
+                                <span className="rounded-full border border-amber-300 bg-amber-200 px-3 py-1  font-semibold tracking-wide text-amber-900" >
 
                                     {user.plan}
-                                    {/* pro upgrade button - visible only for free users */}
-                                    {plan && plan.toLowerCase() === "free" && (
-                                        <PlanUpgradeButton />
-                                    )}
-
+                                    
                                 </span>
                             </h3>
 
@@ -97,39 +93,87 @@ export default function UserDetails() {
 
                         </div>
                     </div>
+                    
+                    {/* pro user only: pro plan details  */}
+                    {
+                        user.plan === 'pro' && 
+                        <div className="mt-8 w-[380px] overflow-hidden rounded-2xl border border-amber-300 bg-gradient-to-br from-amber-50 via-yellow-50 to-amber-100 shadow-lg">
 
-                    <div className=" mt-8 border border-(--color-border) flex flex-col justify-start items-start w-[380px] rounded-lg bg-(--color-bg-tertiary)">
+                            {/* Header */}
+                            <div className="flex items-center justify-between border-b border-amber-200 px-5 py-4">
+                                <div>
+                                    <h3 className="text-lg font-semibold text-amber-900">
+                                        ✨ Pro Membership
+                                    </h3>
+                                    <p className="text-xs text-amber-700">
+                                        Premium Access Activated
+                                    </p>
+                                </div>
 
-                        {/* headline  */}
-                        <div className="w-full text-[1rem] font-medium p-4 border-b border-(--color-border) text-(--color-text-primary)">
-                            <h3>Pro Details</h3>
+                                <div className="rounded-full border border-amber-300 bg-amber-200/60 px-3 py-1 text-xs font-semibold tracking-wide text-amber-900">
+                                    Pro
+                                </div>
+                            </div>
+
+                            {/* Details */}
+                            <div className="p-5 flex flex-col gap-4">
+
+                                <div className="flex justify-between border-b border-amber-200 pb-3">
+                                    <span className="text-amber-700">
+                                        Activated On
+                                    </span>
+                                    <span className="font-medium text-zinc-900">
+                                        {formatDate(user.planUpgradedAt)}
+                                    </span>
+                                </div>
+
+                                <div className="flex justify-between border-b border-amber-200 pb-3">
+                                    <span className="text-amber-700">
+                                        Valid Until
+                                    </span>
+                                    <span className="font-medium text-zinc-900">
+                                        { formatDate(user.planExpiresAt) }
+                                    </span>
+                                </div>
+
+                                <div className="flex justify-between border-b border-amber-200 pb-3">
+                                    <span className="text-amber-700">
+                                        Remaining Access
+                                    </span>
+                                    <span className="font-semibold text-amber-900">
+                                        200 Days
+                                    </span>
+                                </div>
+
+                                {/* Premium Benefits */}
+                                <div className="space-y-3 pt-2">
+
+                                    <div className="flex items-center gap-3">
+                                        <span className="text-lg text-amber-700 ">✦</span>
+                                        <span className="font-medium text-zinc-900">
+                                            Infinite Creative Power
+                                        </span>
+                                    </div>
+
+                                    <div className="flex items-center gap-3">
+                                        <span className="text-lg text-amber-700 ">✦</span>
+                                        <span className="font-medium text-zinc-900">
+                                            Unlimited Generations
+                                        </span>
+                                    </div>
+
+                                    <div className="flex items-center gap-3">
+                                        <span className="text-lg text-amber-700 ">✦</span>
+                                        <span className="font-medium text-zinc-900">
+                                            Exclusive Premium Features
+                                        </span>
+                                    </div>
+
+                                </div>
+
+                            </div>
                         </div>
-
-                        {/* detail */}
-                        <div className="p-5 w-full flex flex-col gap-3 text-[0.95rem]">
-
-                            <h3 className="flex justify-between border-b border-(--color-border) pb-2  items-center  gap-2">
-                                <span className="text-(--color-text-muted)">Plan Activation: </span>
-                                <span className="text-(--color-text-primary) flex items-center justify-center gap-2 "> { formatDate(user.planUpgradedAt) } </span>
-                            </h3>
-
-                            <h3 className="flex justify-between border-b border-(--color-border) pb-2">
-                                <span className="text-(--color-text-muted)">Plan Expiration: </span>
-                                <span className="text-(--color-text-primary)"> { formatDate(user.planExpiresAt) } </span>
-                            </h3>
-
-                            <h3 className="flex justify-between border-b border-(--color-border) pb-2">
-                                <span className="text-(--color-text-muted)">Days Left: </span>
-                                <span className="text-(--color-text-primary)"> 200 </span>
-                            </h3>
-
-                            <h3 className="flex justify-between border-b border-(--color-border) pb-2">
-                                 ✓ Unlimited Generations <br />
-                                 ✓ Priority Access
-                            </h3>
-
-                        </div>
-                    </div>
+                    }
                 </div>
 
             </div>
