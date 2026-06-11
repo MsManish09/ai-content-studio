@@ -31,7 +31,7 @@ export default function DashBoard(){
         console.log('alreadyShown : ', alreadyShown)
 
         // shwo reminder modla when conditions are meet.
-        if ( user?.plan === "pro" && daysRemaining >= 30 && !alreadyShown) {
+        if ( user?.plan === "pro" && daysRemaining <= 30 && !alreadyShown) {
             setReminderModal(true)
         }
 
