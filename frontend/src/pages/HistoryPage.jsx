@@ -81,9 +81,10 @@ export default function HistoryPage(){
                             </h3>
 
                             <p className="  text-(--color-text-secondary)   ">
-                                Your generated content history will appear here. <br />
-                               <span onClick={()=> navigate(`/`) } className=" cursor-pointer hover:text-(--color-yellow)  " >Create your first AI generation to get started.</span>
+                                Your generated content history will appear here.
                             </p>
+
+                            <button onClick={()=> navigate(`/`) }  className=" mt-4 px-4 py-2 rounded-lg bg-(--color-yellow) text-white hover:opacity-90 hover:scale-95 transition" >Generate Content</button>
                         </div>
                     </div>
                 
