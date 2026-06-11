@@ -13,7 +13,7 @@ export default function HistoryPage(){
     const generationState = useSelector(state => state.generation)
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const noGenerations = !generationState.isLoadingHistory && generationState.generations.data.length === 0 
+    const noGenerations = !generationState.isLoadingHistory && generationState.generations.data.length === 0    
 
     // extact page number from the url
     const [searchParams] = useSearchParams()
@@ -36,7 +36,7 @@ export default function HistoryPage(){
         }
 
         dispatch(historyThunk(page))
-    },[page, generationState])
+    },[page])
 
     // smooth page scroll reset
     useEffect(()=>{

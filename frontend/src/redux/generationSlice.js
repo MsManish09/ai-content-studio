@@ -144,6 +144,11 @@ const generationSlice = createSlice({
         .addCase(generateThunk.fulfilled, (state, action)=>{
             state.isGenerating = false
             state.currentResponse = action.payload.data
+
+            // populate the new generation into the generations list
+            state.generations.data.unshift(action.payload.data)
+
+            // populate the new generaton into the recent generatiosn list
             state.recentGenerations.unshift(action.payload.data)
             // when recentGenertion > 20 -> remove last item
             if(state.recentGenerations.length > 20){
