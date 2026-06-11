@@ -78,6 +78,10 @@ body {
 
 }
 
+button:hover{
+  cursor: pointer;
+}
+
 
 /* upgrade button animaition -> to catch users attention */
 @keyframes subtleZoom {

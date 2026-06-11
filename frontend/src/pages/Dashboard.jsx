@@ -6,17 +6,35 @@ import { useSelector } from "react-redux"
 import { Route, Routes } from "react-router-dom"
 import MainWorkspace from "../components/MainWorkspace.jsx"
 import ContentDetailsPage from "./ContentDetailsPage.jsx"
+import { getDaysRemaining } from "../utils/subcriptionUtils.js"
+import PlanExpiryModal from "../components/PlanExpiryAlertModal.jsx"
 
 
 export default function DashBoard(){
+       
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+    const generationState  = useSelector((state)=> state.generation)
+    const { user } = useSelector((state) => state.auth)
+    const daysRemaining = getDaysRemaining( user?.planExpiresAt )
+    const [reminderModal, setReminderModal] = useState(false)
 
-        const [isSidebarOpen, setIsSidebarOpen] = useState(false)
-        const generationState  = useSelector((state)=> state.generation)
+    // show generation history results
+    useEffect(()=>{
+        console.log('Generation State: ', generationState)
+        console.log('user : ', user)
+    },[generationState])
 
-        // show generation history results
-        useEffect(()=>{
-            console.log('Generation State: ', generationState)
-        },[generationState])
+    // if remaining days is <= 30, set reminderModal to true
+    useEffect(()=>{
+
+        const alreadyShown = sessionStorage.getItem('planExpiryReminderShown')
+        console.log('alreadyShown : ', alreadyShown)
+
+        if ( user?.plan === "pro" && daysRemaining >= 30 && !alreadyShown) {
+            setReminderModal(true)
+        }
+
+    }, [user, daysRemaining])
 
 
     return(
@@ -40,6 +58,15 @@ export default function DashBoard(){
                     </main>
                 </div>
             </div>
+
+            {/* pro plan remaining days alert modal */}
+            {
+                reminderModal
+                &&
+                <PlanExpiryModal  onClose={()=> setReminderModal(false)} daysRemaining={daysRemaining}   />
+
+            }
+
         </div>
     )
 
