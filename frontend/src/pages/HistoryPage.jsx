@@ -13,7 +13,8 @@ export default function HistoryPage(){
     const generationState = useSelector(state => state.generation)
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    
+    const noGenerations = !generationState.isLoadingHistory && generationState.generations.data.length === 0    
+
     // extact page number from the url
     const [searchParams] = useSearchParams()
     let page = Number(searchParams.get("page")) || 1
@@ -62,6 +63,33 @@ export default function HistoryPage(){
             <h2 className="px-2 font-bold text-[1.75rem] text-center sm:text-start text-(--color-primary)">
                 Content Generation History
             </h2>
+
+            {/* if no generations yet */}
+            {
+                noGenerations
+                && (   
+                    <div className="flex justify-center py-8 px-2">
+
+                        <div className=" w-full max-w-2xl bg-(--color-bg-tertiary) border border-(--color-border) rounded-xl p-8 text-center shadow-s ">
+
+                            <div className="  mx-auto mb-4  flex items-center justify-center  w-16 h-16  rounded-full  bg-(--color-accent-soft) ">
+                                <span className="text-2xl">✨</span>
+                            </div>
+
+                            <h3 className="  text-xl font-bold  text-(--color-primary)  mb-2  ">
+                                No Generations Yet
+                            </h3>
+
+                            <p className="  text-(--color-text-secondary)   ">
+                                Your generated content history will appear here. <br />
+                               <span onClick={()=> navigate(`/`) } className=" cursor-pointer hover:text-(--color-yellow)  " >Create your first AI generation to get started.</span>
+                            </p>
+                        </div>
+                    </div>
+                
+                )
+
+            }
 
             {/* Cards */}
             <div className="flex flex-col gap-3 py-4 px-2">

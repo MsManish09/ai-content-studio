@@ -31,7 +31,7 @@ export default function DashBoard(){
         const alreadyShown = sessionStorage.getItem('planExpiryReminderShown') === 'true'
 
         // shwo reminder modal when conditions are meet.
-        if ( user?.plan === "pro" && daysRemaining >= 30 && daysRemaining > 0 && !alreadyShown) {
+        if ( user?.plan === "pro" && daysRemaining <= 30 && daysRemaining > 0 && !alreadyShown) {
             setReminderModal(true)
         }
 
