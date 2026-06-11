@@ -112,11 +112,14 @@ export default function HistoryPage(){
 
             {/* Pagination */}
             <div className="px-6 absolute bottom-4 bg-(--color-bg-primary) w-full">
-            <Pagination
-                page={generationState.generations.page}
-                totalPages={generationState.generations.totalPages}
-                onPageChange={handlePageChange}
-            />
+                {
+                    !noGenerations 
+                    &&
+                    (
+                        <Pagination page={generationState.generations.page} totalPages={generationState.generations.totalPages} onPageChange={handlePageChange} />
+
+                    )
+                }
             </div>
 
         </div>
