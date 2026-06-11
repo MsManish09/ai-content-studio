@@ -27,11 +27,11 @@ export default function DashBoard(){
     // if remaining days is <= 30, set reminderModal to true
     useEffect(()=>{
 
-        const alreadyShown = sessionStorage.getItem('planExpiryReminderShown')
-        console.log('alreadyShown : ', alreadyShown)
+        // sessionStorage only stores strings -> so compare with 'true' string to generate a boolena value
+        const alreadyShown = sessionStorage.getItem('planExpiryReminderShown') === 'true'
 
-        // shwo reminder modla when conditions are meet.
-        if ( user?.plan === "pro" && daysRemaining <= 30 && !alreadyShown) {
+        // shwo reminder modal when conditions are meet.
+        if ( user?.plan === "pro" && daysRemaining >= 30 && daysRemaining > 0 && !alreadyShown) {
             setReminderModal(true)
         }
 

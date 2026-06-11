@@ -6,14 +6,10 @@ export default function PlanExpiryModal({  onClose, daysRemaining }) {
 
     const isCritical = daysRemaining <= 7
 
-    useEffect(()=>{
-        
-    }, [])
-
     function handleClose(){
 
-        // set reminder shown to true in session storage
-        sessionStorage.setItem('planExpiryReminderShown', true)
+        // set reminder shown to true in session storage -> sessionStorage only stores strings.
+        sessionStorage.setItem('planExpiryReminderShown', 'true')
 
         // call setmodal fn
         onClose()
