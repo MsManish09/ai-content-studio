@@ -82,6 +82,47 @@ button:hover{
   cursor: pointer;
 }
 
+.filterPill{
+  padding: 8px 16px;
+  width: 128px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+
+.active-pill-styles{
+  background-color: var(--color-yellow);
+}
+
+.inactive-pill-styles{
+  background-color: var(--color-bg-tertiary);
+}
+
+/* history card template indicator styles */
+.blog {
+  background: #6d28d9;
+}
+
+.instagram {
+  background: #d97706;
+}
+
+.tweet {
+  background: #059669;
+}
+
+.linkedin {
+  background: #1d4ed8;
+}
+
+
 
 /* upgrade button animaition -> to catch users attention */
 @keyframes subtleZoom {

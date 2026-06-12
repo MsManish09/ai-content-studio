@@ -38,10 +38,14 @@ export default function HistoryPage(){
         // if page > totalpages
         if( page > generationState.generations.totalPages ){
 
-            navigate(`/history?page=${generationState.generations.totalPages}`)
+            navigate( `/history?page=${generationState.generations.totalPages}&template=${template}`)
             return
             
         }
+
+        console.log("URL template:", template)
+        console.log("page:", page)
+        console.log("searchParams:", searchParams.toString())
 
         dispatch(historyThunk({
             page,
@@ -74,6 +78,22 @@ export default function HistoryPage(){
             <h2 className="px-2 font-bold text-[1.75rem] text-center sm:text-start text-(--color-primary)">
                 Content Generation History
             </h2>
+
+            {/* template based filter */}
+            <div className="flex flex-wrap gap-2 px-2 mt-4">
+
+                {templates.map(item => (
+                    <button key={item}
+                        onClick={() =>
+                            navigate(
+                                `/history?page=1&template=${item}`
+                            )
+                        }
+                        className={ template === item  ? "active-pill-styles filterPill"  : "inactive-pill-styles filterPill"  } >
+                        {item}
+                    </button>
+                ))}
+            </div>
 
             {/* if no generations yet */}
             {
@@ -182,7 +202,7 @@ function HistoryCards({item, index, page}){
     }
 
     return (
-        <div className="flex items-center gap-3 w-full  bg-(--color-bg-tertiary)  hover:bg-(--color-bg-quaternary)  transition  p-3 rounded-lg  border border-(--color-border) hover:border-(--color-border-strong) hover:translate-y-[2px] " onClick={handleClick}>
+        <div className="flex items-center gap-3 w-full  bg-(--color-bg-tertiary)  hover:bg-(--color-bg-quaternary)  transition  p-3 rounded-lg  border border-(--color-border) hover:border-(--color-border-strong) hover:translate-y-[2px] hover:cursor-pointer " onClick={handleClick}>
 
             {err && (
                 <div className="text-(--color-error) text-sm">{err?.message}</div>
@@ -205,7 +225,7 @@ function HistoryCards({item, index, page}){
                 <div className="flex items-center gap-2 text-xs">
 
                     {/* Template */}
-                    <span className="flex items-center justify-center  text-sm font-mono font-semibold  px-3 py-1 rounded-md  bg-(--color-accent-soft)  text-(--color-primary)">
+                    <span className={`flex items-center justify-center  text-sm font-mono font-semibold  px-3 py-1 rounded-md  w-[100px]  text-(--color-primary) ${item.template}`}>
                         {item.template}
                     </span>
 
