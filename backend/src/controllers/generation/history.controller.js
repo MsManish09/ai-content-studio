@@ -9,17 +9,20 @@ export async function historyController(req, res, next){
         // extracting query params 
         const page = parseInt(req.query.page) || 1
         const limit = parseInt(req.query.limit) || 20
+        const template = req.query.template || 'all'
 
         const {generations, total, totalPages} = await historyService({
             userId,
             page, 
-            limit
+            limit,
+            template
         })
 
         res.status(200).json({
             success: true,
             page,
             limit,
+            template,
             total,
             totalPages,
             data: generations
