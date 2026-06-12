@@ -38,8 +38,8 @@ export default async function historyService({userId, page, limit, template}){
             generationModel.countDocuments( query )
     ])
 
-    // calculate total number of pages with limit
-    const totalPages = Math.ceil( total / limit )
+    // calculate total number of pages with limit, min = 1 page
+   const totalPages = Math.max( 1, Math.ceil( total / limit ) )
     
     return {
         generations,
