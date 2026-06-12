@@ -21,10 +21,17 @@ const initialState = {
 // get generation history Thunk
 export const historyThunk = createAsyncThunk(
     'generation/history',
-    async(page = 1, thunkAPI)=>{
+    async({
+        page = 1,
+        template = 'all'
+    }
+    , thunkAPI)=>{
 
         try {
-            const res = await getHistory(page)
+            const res = await getHistory({
+                page,
+                template
+            })
             
             return res 
         } catch (error) {
@@ -72,7 +79,12 @@ export const deleteIndividualHistoryThunk = createAsyncThunk(
 
             if( items === 1 && page > 1){
                 thunkAPI.dispatch(
-                    historyThunk(page-1)
+                    historyThunk(
+                        {
+                            page: page - 1,
+                        }
+                    )
+                    
                 )
             }
 

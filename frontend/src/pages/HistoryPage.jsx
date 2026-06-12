@@ -18,12 +18,20 @@ export default function HistoryPage(){
     // extact page number from the url
     const [searchParams] = useSearchParams()
     let page = Number(searchParams.get("page")) || 1
+    const template = searchParams.get("template") || "all"
+    const templates = [
+        "all",
+        "blog",
+        "instagram",
+        "linkedin",
+        "tweet"
+    ]
 
     // re-load generationState on history page navigation -> latest 20 generations
     useEffect(()=>{
 
         if(page < 1){
-            navigate('/history?page=1')
+            navigate(`/history?page=1&template=${template}`)
             return
         }
 
@@ -35,8 +43,12 @@ export default function HistoryPage(){
             
         }
 
-        dispatch(historyThunk(page))
-    },[page])
+        dispatch(historyThunk({
+            page,
+            template
+            
+        }))
+    },[page, template])
 
     // smooth page scroll reset
     useEffect(()=>{
@@ -45,8 +57,7 @@ export default function HistoryPage(){
 
     // pagination -> page change
     function handlePageChange(page){
-        navigate(`/history?page=${page}`)
-        // dispatch(historyThunk(page))
+        navigate(`/history?page=${page}&template=${template}`)
     }
 
 
@@ -157,7 +168,7 @@ function HistoryCards({item, index, page}){
                 id: item._id,
                 page
             }) ).unwrap()
-            console.log(' delete history | res : ', res)
+            // console.log(' delete history | res : ', res)
            
            toast.success('Deletion successful')
 
