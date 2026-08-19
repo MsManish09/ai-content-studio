@@ -97,3 +97,12 @@ AI Content Studio is a full-stack web application that allows users to generate 
           │ Generations   │            │ Generation    │
           └───────────────┘            └───────────────┘
 ```
+
+### Authentication Flow
+
+- A user registers or logs in through the React frontend.
+- The backend validates the credentials and generates a JWT.
+- The JWT is stored in an HTTP-only cookie.
+- Protected API requests send the cookie automatically.
+- The authentication middleware verifies the JWT and attaches the user's ID to the request.
+- User-specific operations such as generation history and deletion are performed using the authenticated user ID.
