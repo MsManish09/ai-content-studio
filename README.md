@@ -65,8 +65,6 @@ AI Content Studio is a full-stack web application that allows users to generate 
 ### AI Integration
 
 - Groq API
-- OpenAI JavaScript SDK
-- `llama-3.3-70b-versatile` model
 
 ## Application Flow
 
