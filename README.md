@@ -136,13 +136,17 @@ Clone the repository:
 
 ### Install frontend dependencies:
 
-- cd frontend
-- npm install
+```
+cd frontend
+npm install
+```
 
 ### Install backend dependencies:
 
-- cd ../backend
-- npm install
+```
+cd ../backend
+npm install
+```
 
 ### Environment Variables
 
@@ -153,4 +157,30 @@ MONGO_URL=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret
 GROQ_API_KEY=your_groq_api_key
 PORT=8080
+```
+
+### Run the Application
+
+- Start the backend:
+
+```
+cd backend
+npm run dev
+```
+
+- The backend runs on port 8080 by default.
+
+- Start the frontend in a separate terminal:
+
+```
+cd frontend
+npm run dev
+```
+
+- The frontend development server runs using Vite.
+
+- The frontend currently communicates with the backend through:
+
+```
+http://localhost:8080/api
 ```
