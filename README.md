@@ -126,3 +126,9 @@ AI Content Studio is a full-stack web application that allows users to generate 
 - npm
 - MongoDB database
 - Groq API key
+
+### Installation
+
+Clone the repository:
+git clone <https://github.com/MsManish09/ai-content-studio.git>
+cd <ai-content-studio>
