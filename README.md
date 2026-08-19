@@ -129,7 +129,7 @@ AI Content Studio is a full-stack web application that allows users to generate 
 
 ### Installation
 
-Clone the repository:
+#### Clone the repository:
 
 ```
 git clone <https://github.com/MsManish09/ai-content-studio.git>
