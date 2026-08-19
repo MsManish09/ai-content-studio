@@ -106,3 +106,23 @@ AI Content Studio is a full-stack web application that allows users to generate 
 - Protected API requests send the cookie automatically.
 - The authentication middleware verifies the JWT and attaches the user's ID to the request.
 - User-specific operations such as generation history and deletion are performed using the authenticated user ID.
+
+### Content Generation Flow
+
+- The user enters a prompt and selects a content template.
+- React dispatches the generation Redux thunk.
+- Axios sends the request to the Express API.
+- The backend checks the authenticated user and usage limits.
+- The selected template is used to build an AI prompt.
+- The backend sends the prompt to the Groq API.
+- The generated content and token usage are stored in MongoDB.
+- The generated result is returned to the frontend and displayed to the user.
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js
+- npm
+- MongoDB database
+- Groq API key
