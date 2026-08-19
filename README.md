@@ -136,5 +136,21 @@ Clone the repository:
 
 ### Install frontend dependencies:
 
-cd frontend
-npm install
+- cd frontend
+- npm install
+
+### Install backend dependencies:
+
+- cd ../backend
+- npm install
+
+### Environment Variables
+
+Create a .env file inside the backend directory.
+
+```
+MONGO_URL=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+GROQ_API_KEY=your_groq_api_key
+PORT=8080
+```
