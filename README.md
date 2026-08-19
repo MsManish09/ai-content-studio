@@ -186,3 +186,17 @@ npm run dev
 ```
 http://localhost:8080/api
 ```
+
+### API Overview
+
+The backend exposes REST APIs under /api.
+
+#### Authentication
+
+| Method | Endpoint             | Description                              | Authentication |
+| ------ | -------------------- | ---------------------------------------- | -------------- |
+| `POST` | `/api/auth/register` | Register a new user                      | No             |
+| `POST` | `/api/auth/login`    | Authenticate a user                      | No             |
+| `POST` | `/api/auth/logout`   | Log out the current user                 | No             |
+| `GET`  | `/api/auth/me`       | Get the currently authenticated user     | Yes            |
+| `PUT`  | `/api/auth/upgrade`  | Upgrade the current user to the Pro plan | Yes            |
