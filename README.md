@@ -163,7 +163,7 @@ PORT=8080
 
 ### Run the Application
 
-- Start the backend:
+#### Start the backend:
 
 ```
 cd backend
@@ -172,7 +172,7 @@ npm run dev
 
 - The backend runs on port 8080 by default.
 
-- Start the frontend in a separate terminal:
+#### Start the frontend in a separate terminal:
 
 ```
 cd frontend
@@ -181,7 +181,7 @@ npm run dev
 
 - The frontend development server runs using Vite.
 
-- The frontend currently communicates with the backend through:
+#### The frontend currently communicates with the backend through:
 
 ```
 http://localhost:8080/api
