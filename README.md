@@ -235,8 +235,6 @@ The following are potential improvements for future versions of the project:
 - Add production deployment and environment-specific configuration.
 - Add search functionality to generation history.
 
-## Author
+### Author
 
-```
 Manish M S
-```
