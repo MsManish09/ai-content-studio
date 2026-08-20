@@ -187,11 +187,11 @@ npm run dev
 http://localhost:8080/api
 ```
 
-### API Overview
+## API Overview
 
 The backend exposes REST APIs under /api.
 
-#### Authentication
+### Authentication
 
 | Method | Endpoint             | Description                              | Authentication |
 | ------ | -------------------- | ---------------------------------------- | -------------- |
@@ -200,3 +200,31 @@ The backend exposes REST APIs under /api.
 | `POST` | `/api/auth/logout`   | Log out the current user                 | No             |
 | `GET`  | `/api/auth/me`       | Get the currently authenticated user     | Yes            |
 | `PUT`  | `/api/auth/upgrade`  | Upgrade the current user to the Pro plan | Yes            |
+
+### Content Generation and History
+
+| Method   | Endpoint           | Description                      | Authentication |
+| -------- | ------------------ | -------------------------------- | -------------- |
+| `POST`   | `/api/generate`    | Generate AI content              | Yes            |
+| `GET`    | `/api/history`     | Get paginated generation history | Yes            |
+| `GET`    | `/api/history/:id` | Get an individual generation     | Yes            |
+| `DELETE` | `/api/history/:id` | Delete an individual generation  | Yes            |
+
+The history endpoint supports pagination and template filtering through query parameters.
+
+Example:
+
+```
+GET /api/history?page=1&limit=20&template=blog
+```
+
+#### Supported templates:
+
+```
+blog
+instagram
+linkedin
+tweet
+```
+
+Use template=all to retrieve history across all templates.
