@@ -237,4 +237,4 @@ The following are potential improvements for future versions of the project:
 
 ### Author
 
-Manish M S
+**Manish M S**
