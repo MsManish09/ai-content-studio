@@ -234,3 +234,9 @@ The following are potential improvements for future versions of the project:
 - Replace the demo payment flow with a real payment provider such as Stripe or Razorpay.
 - Add production deployment and environment-specific configuration.
 - Add search functionality to generation history.
+
+## Author
+
+```
+Manish M S
+```
