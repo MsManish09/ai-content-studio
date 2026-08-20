@@ -227,7 +227,7 @@ tweet
 
 Use template=all to retrieve history across all templates.
 
-### Future Improvements
+## Future Improvements
 
 The following are potential improvements for future versions of the project:
 
