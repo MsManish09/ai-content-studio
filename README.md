@@ -189,8 +189,6 @@ http://localhost:8080/api
 
 ## API Overview
 
-The backend exposes REST APIs under /api.
-
 ### Authentication
 
 | Method | Endpoint             | Description                              | Authentication |
@@ -228,3 +226,11 @@ tweet
 ```
 
 Use template=all to retrieve history across all templates.
+
+### Future Improvements
+
+The following are potential improvements for future versions of the project:
+
+- Replace the demo payment flow with a real payment provider such as Stripe or Razorpay.
+- Add production deployment and environment-specific configuration.
+- Add search functionality to generation history.
