@@ -29,6 +29,8 @@ export async function generateContent(prompt){
             return {result, tokensUsed}
     } catch (error) {
         console.error("AI API Error:", error)
-        throw new Error("AI generation failed")
+        throw new Error(
+            "AI generation failed. Please try again later."
+        )
     }
 }

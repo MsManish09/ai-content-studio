@@ -1,3 +1,3 @@
 
 // configuring Grok model
-export const AI_MODEL = 'llama-3.3-70b-versatile'
+export const AI_MODEL = 'openai/gpt-oss-120b'

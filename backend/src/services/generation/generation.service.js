@@ -1,6 +1,7 @@
 import { UserModel } from "../../models/Users.model.js";
 import { generationModel } from "../../models/Generations.model.js";
 import { generateContent } from "./ai.services.js";
+import { AI_MODEL } from "../../config/ai.config.js";
 
 export default async function generationService({userId,prompt, template}){
 
@@ -46,7 +47,7 @@ export default async function generationService({userId,prompt, template}){
         template,
         result,
         tokensUsed, 
-        model: 'llama3-70b-8192' 
+        model: AI_MODEL
     })
 
     // update count and save
