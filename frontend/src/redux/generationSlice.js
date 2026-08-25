@@ -21,11 +21,13 @@ const initialState = {
 // get generation history Thunk
 export const historyThunk = createAsyncThunk(
     'generation/history',
-    async({
-        page = 1,
-        template = 'all'
-    }
-    , thunkAPI)=>{
+    async(
+            {
+                page = 1,
+                template = 'all'
+            } = {},
+            thunkAPI
+    ) => {
 
         try {
             const res = await getHistory({
