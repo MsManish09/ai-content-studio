@@ -1,11 +1,14 @@
-import {app} from './src/app.js'
-import {connectDB} from './src/config/db.js'
 // load .env file
 import dotenv from 'dotenv'
-
-
 // load evironment variables
 dotenv.config()
+
+import {app} from './src/app.js'
+import {connectDB} from './src/config/db.js'
+
+
+
+
 
 // connect to DB
 connectDB()
