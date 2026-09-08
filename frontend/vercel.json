@@ -1,0 +1,11 @@
+
+
+{
+    "_comment": "Rewrite all routes to index.html as React Router can handle client-side routing.",
+    "rewrites": [
+        {
+        "source": "/(.*)",
+        "destination": "/index.html"
+        }
+    ]
+}
